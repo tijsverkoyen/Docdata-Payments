@@ -19,11 +19,10 @@
  *
  * This software is provided by the author "as is" and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.
  *
- * @author			Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
- * @version			1.0.0
- *
- * @copyright		Copyright (c) Tijs Verkoyen. All rights reserved.
- * @license			BSD License
+ * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
+ * @version 1.0.0
+ * @copyright Copyright (c) Tijs Verkoyen. All rights reserved.
+ * @license BSD License
  */
 class DocdataPayments
 {
@@ -33,61 +32,54 @@ class DocdataPayments
 	// current version
 	const VERSION = '1.0.0';
 
-
 	/**
 	 * The mode
 	 *
-	 * @var	string
+	 * @var string
 	 */
 	private $mode = 'test';
-
 
 	/**
 	 * The password
 	 *
-	 * @var	string
+	 * @var string
 	 */
 	private $password;
-
 
 	/**
 	 * The SOAP-client
 	 *
-	 * @var	SoapClient
+	 * @var SoapClient
 	 */
 	private $soapClient;
-
 
 	/**
 	 * The timeout
 	 *
-	 * @var	int
+	 * @var int
 	 */
 	private $timeOut = 30;
-
 
 	/**
 	 * The user agent
 	 *
-	 * @var	string
+	 * @var string
 	 */
 	private $userAgent;
-
 
 	/**
 	 * The username
 	 *
-	 * @var	string
+	 * @var string
 	 */
 	private $username;
 
-
-// class methods
+	// class methods
 	/**
 	 * Default constructor
 	 *
-	 * @param	string $username	The username to authenticate with.
-	 * @param	string $password	The password to use for authenticating.
+	 * @param $username string username to authenticate with.
+	 * @param $password string password to use for authenticating.
 	 */
 	public function __construct($username, $password)
 	{
@@ -95,7 +87,6 @@ class DocdataPayments
 		$this->setUsername($username);
 		$this->setPassword($password);
 	}
-
 
 	/**
 	 * Destructor
@@ -105,13 +96,12 @@ class DocdataPayments
 		if($this->soapClient !== null) $this->soapClient = null;
 	}
 
-
 	/**
 	 * Make the call
 	 *
-	 * @return	mixed
-	 * @param	string $method					The method to be called.
-	 * @param	array[optional] $parameters		The parameters.
+	 * @return mixed
+	 * @param $method string method to be called.
+	 * @param $parameters array[optional] parameters.
 	 */
 	private function doCall($method, array $parameters = null)
 	{
@@ -119,12 +109,7 @@ class DocdataPayments
 		if($this->soapClient === null)
 		{
 			// build options
-			$options = array('soap_version' => SOAP_1_1,
-							 'trace' => self::DEBUG,
-							 'exceptions' => true,
-							 'connection_timeout' => $this->getTimeOut(),
-							 'user_agent' => $this->getUserAgent()
-						);
+			$options = array('soap_version' => SOAP_1_1, 'trace' => self::DEBUG, 'exceptions' => true, 'connection_timeout' => $this->getTimeOut(), 'user_agent' => $this->getUserAgent());
 
 			// create client
 			$this->soapClient = new SoapClient($this->getWSDL(), $options);
@@ -185,12 +170,11 @@ class DocdataPayments
 		return $response;
 	}
 
-
 	/**
 	 * Make a REST call
 	 *
-	 * @return	SimpleXMLElement
-	 * @param	string $url			The URL to call.
+	 * @return SimpleXMLElement
+	 * @param $url string URL to call.
 	 */
 	private function doRestCall($url)
 	{
@@ -239,7 +223,7 @@ class DocdataPayments
 				echo '</pre>';
 
 				// stop the script
-				exit;
+				exit();
 			}
 
 			// throw error
@@ -259,33 +243,30 @@ class DocdataPayments
 		return $xml;
 	}
 
-
 	/**
 	 * Get the current mode
 	 *
-	 * @return	string
+	 * @return string
 	 */
 	public function getMode()
 	{
 		return $this->mode;
 	}
 
-
 	/**
 	 * Get the password
 	 *
-	 * @return	string
+	 * @return string
 	 */
 	public function getPassword()
 	{
 		return $this->password;
 	}
 
-
 	/**
 	 * Get the correct REST url
 	 *
-	 * @return	string
+	 * @return string
 	 */
 	private function getRESTUrl()
 	{
@@ -293,45 +274,42 @@ class DocdataPayments
 		return 'https://test.docdatapayments.com/ps/com.tripledeal.paymentservice.servlets.PaymentService';
 	}
 
-
 	/**
 	 * Get the timeout that will be used
 	 *
-	 * @return	int
+	 * @return int
 	 */
 	public function getTimeOut()
 	{
 		return (int) $this->timeOut;
 	}
 
-
 	/**
-	 * Get the useragent that will be used. Our version will be prepended to yours.
+	 * Get the useragent that will be used.
+	 * Our version will be prepended to yours.
 	 * It will look like: "PHP Docdata Payments/<version> <your-user-agent>"
 	 *
-	 * @return	string
+	 * @return string
 	 */
 	public function getUserAgent()
 	{
 		return (string) 'PHP Docdata Payments/' . self::VERSION . ' ' . $this->userAgent;
 	}
 
-
 	/**
 	 * Get the username
 	 *
-	 * @return	string
+	 * @return string
 	 */
 	public function getUsername()
 	{
 		return $this->username;
 	}
 
-
 	/**
 	 * Get the correct WSDL
 	 *
-	 * @return	string
+	 * @return string
 	 */
 	private function getWSDL()
 	{
@@ -339,13 +317,12 @@ class DocdataPayments
 		return 'http://test.tripledeal.com:80/ps/services/paymentservice/0_2?wsdl';
 	}
 
-
 	/**
 	 * Convert an object into an array
 	 *
-	 * @return	array
-	 * @param	object $object
-	 * @param	array[optional] $array
+	 * @return array
+	 * @param $object object
+	 * @param $array array[optional]
 	 */
 	private static function objectToArray($object, $array = array())
 	{
@@ -353,21 +330,22 @@ class DocdataPayments
 		foreach($object as $key => $value)
 		{
 			// if the value is an object, we should loop it recursivaly
-			if(is_object($value)) $array[$key] = self::objectToArray($value, $array);
+			if(is_object($value))
+				$array[$key] = self::objectToArray($value, $array);
 
-			// if the value isn't null we add it into the array
-			elseif($value !== null) $array[$key] = $value;
+				// if the value isn't null we add it into the array
+			elseif($value !== null)
+				$array[$key] = $value;
 		}
 
 		// return
 		return $array;
 	}
 
-
 	/**
 	 * Set the mode
 	 *
-	 * @param	string $mode	The mode to use. Possible values are: test, production
+	 * @param $mode string mode to use. Possible values are: test, production
 	 */
 	public function setMode($mode)
 	{
@@ -380,60 +358,56 @@ class DocdataPayments
 		$this->mode = $mode;
 	}
 
-
 	/**
 	 * Set the password
 	 *
-	 * @param	string $password	The password.
+	 * @param $password string password.
 	 */
 	public function setPassword($password)
 	{
 		$this->password = (string) $password;
 	}
 
-
 	/**
 	 * Set the timeout
-	 * After this time the request will stop. You should handle any errors triggered by this.
+	 * After this time the request will stop.
+	 * You should handle any errors triggered by this.
 	 *
-	 * @param	int $seconds	The timeout in seconds.
+	 * @param $seconds int timeout in seconds.
 	 */
 	public function setTimeOut($seconds)
 	{
 		$this->timeOut = (int) $seconds;
 	}
 
-
 	/**
 	 * Set the user-agent for you application
 	 * It will be appended to ours, the result will look like: "PHP Docdata Payments/<version> <your-user-agent>"
 	 *
-	 * @param	string $userAgent	Your user-agent, it should look like <app-name>/<app-version>.
+	 * @param $userAgent string user-agent, it should look like <app-name>/<app-version>.
 	 */
 	public function setUserAgent($userAgent)
 	{
 		$this->userAgent = (string) $userAgent;
 	}
 
-
 	/**
 	 * Set the username
 	 *
-	 * @param	string $username	The username to use.
+	 * @param $username string username to use.
 	 */
 	public function setUsername($username)
 	{
 		$this->username = (string) $username;
 	}
 
-
-// payment methods
+	// payment methods
 	/**
 	 * Cancel a payment
 	 *
-	 * @param	string $paymentClusterKey
-	 * @param	string $clientLanguage
-	 * @return	mixed
+	 * @param $paymentClusterKey string
+	 * @param $clientLanguage string
+	 * @return mixed
 	 */
 	public function cancelPayment($paymentClusterKey, $clientLanguage = null)
 	{
@@ -463,12 +437,11 @@ class DocdataPayments
 		return (string) $response->msg['value'];
 	}
 
-
 	/**
 	 * Get the payment status
 	 *
-	 * @param	string $paymentClusterKey
-	 * @return	array
+	 * @param $paymentClusterKey string
+	 * @return array
 	 */
 	public function getPaymentStatus($paymentClusterKey)
 	{
@@ -530,22 +503,21 @@ class DocdataPayments
 		return $return;
 	}
 
-
 	/**
 	 * Refund a payment
 	 *
-	 * @param	string $paymentClusterKey
-	 * @param	string $paymentId
-	 * @param	float $refundAmount					The amount of the refund, which must be smaller or equal to the amount of the transaction.
-	 * @param	string[optional] $currency			The ISO currency code of the transaction.
-	 * @param	string[optional] $accountHolderName	First- and last name of the account holder
-	 * @param	string[optional] $accountHolderPlace	City of the account holder's bank
-	 * @param	string[optional] $accountNUmber		Bank account number of the account holder
-	 * @param	string[optional] $iban				International Bank Account Number
-	 * @param	string[optional] $swiftCode			Bank Identifier Code
-	 * @param	string[optional] $bankName			Name of the bank
-	 * @param	string[optional] $bankPlace
-	 * @return	mixed
+	 * @param $paymentClusterKey string
+	 * @param $paymentId string
+	 * @param $refundAmount float amount of the refund, which must be smaller or equal to the amount of the transaction.
+	 * @param $currency string[optional] ISO currency code of the transaction.
+	 * @param $accountHolderName string[optional] and last name of the account holder
+	 * @param $accountHolderPlace string[optional] of the account holder's bank
+	 * @param $accountNUmber string[optional] account number of the account holder
+	 * @param $iban string[optional] Bank Account Number
+	 * @param $swiftCode string[optional] Identifier Code
+	 * @param $bankName string[optional] of the bank
+	 * @param $bankPlace string[optional]
+	 * @return mixed
 	 */
 	public function refundPayment($paymentClusterKey, $paymentId, $refundAmount, $currency = 'EUR', $accountHolderName = null, $accountHolderPlace = null, $accountNumber = null, $iban = null, $swiftCode = null, $bankName = null, $bankPlace = null)
 	{
@@ -586,7 +558,6 @@ class DocdataPayments
 		return (string) $response->msg['value'];
 	}
 
-
 	public function requestPaymentClusterInfo($transactionId)
 	{
 		// build parameters
@@ -623,21 +594,19 @@ class DocdataPayments
 		return $return;
 	}
 
-
-
-// payment url
+	// payment url
 	/**
 	 * Get the payment url
 	 *
-	 * @param	string $clientLanguage
-	 * @param	string $paymentClusterKey
-	 * @param	string[optional] $successUrl				The Merchant’s web page where the shopper will be sent to after a successful transaction. Mandatory in back office.
-	 * @param	string[optional] $canceledUrl				The Merchant’s web page where the shopper will be sent to if they cancel their transaction. Mandatory in back office.
-	 * @param	string[optional] $pendingUrl				The Merchant’s web page where the shopper will be sent to if a payment is started successfully but not yet paid.
-	 * @param	string[optional] $errorUrl				The Merchant’s web page where the shopper will be sent to if an error occurs.
-	 * @param	string[optional] $defaultPaymentMethod	￼The ID of the default payment method.
-	 * @param	string[optional] $defaultAct				Indicates if a default payment method is declared to direct the shopper to that payment method in the payment menu. Can contain the values “yes” or “no”.
-	 * @return	string
+	 * @param $clientLanguage string
+	 * @param $paymentClusterKey string
+	 * @param $successUrl string[optional] Merchant’s web page where the shopper will be sent to after a successful transaction. Mandatory in back office.
+	 * @param $canceledUrl string[optional] Merchant’s web page where the shopper will be sent to if they cancel their transaction. Mandatory in back office.
+	 * @param $pendingUrl string[optional] Merchant’s web page where the shopper will be sent to if a payment is started successfully but not yet paid.
+	 * @param $errorUrl string[optional] Merchant’s web page where the shopper will be sent to if an error occurs.
+	 * @param $defaultPaymentMethod string[optional] ID of the default payment method.
+	 * @param $defaultAct string[optional] if a default payment method is declared to direct the shopper to that payment method in the payment menu. Can contain the values “yes” or “no”.
+	 * @return string
 	 */
 	public function getPaymentUrl($clientLanguage, $paymentClusterKey, $successUrl = null, $canceledUrl = null, $pendingUrl = null, $errorUrl = null, $defaultPaymentMethod = null, $defaultAct = null)
 	{
@@ -661,18 +630,17 @@ class DocdataPayments
 		return $base . '?' . http_build_query($parameters);
 	}
 
-
 	/**
 	 * Redirect to the payment url
 	 *
-	 * @param	string $clientLanguage
-	 * @param	string $paymentClusterKey
-	 * @param	string[optional] $successUrl				The Merchant’s web page where the shopper will be sent to after a successful transaction. Mandatory in back office.
-	 * @param	string[optional] $canceledUrl				The Merchant’s web page where the shopper will be sent to if they cancel their transaction. Mandatory in back office.
-	 * @param	string[optional] $pendingUrl				The Merchant’s web page where the shopper will be sent to if a payment is started successfully but not yet paid.
-	 * @param	string[optional] $errorUrl				The Merchant’s web page where the shopper will be sent to if an error occurs.
-	 * @param	string[optional] $defaultPaymentMethod	￼The ID of the default payment method.
-	 * @param	string[optional] $defaultAct				Indicates if a default payment method is declared to direct the shopper to that payment method in the payment menu. Can contain the values “yes” or “no”.
+	 * @param $clientLanguage string
+	 * @param $paymentClusterKey string
+	 * @param $successUrl string[optional] Merchant’s web page where the shopper will be sent to after a successful transaction. Mandatory in back office.
+	 * @param $canceledUrl string[optional] Merchant’s web page where the shopper will be sent to if they cancel their transaction. Mandatory in back office.
+	 * @param $pendingUrl string[optional] Merchant’s web page where the shopper will be sent to if a payment is started successfully but not yet paid.
+	 * @param $errorUrl string[optional] Merchant’s web page where the shopper will be sent to if an error occurs.
+	 * @param $defaultPaymentMethod string[optional] ID of the default payment method.
+	 * @param $defaultAct string[optional] if a default payment method is declared to direct the shopper to that payment method in the payment menu. Can contain the values “yes” or “no”.
 	 */
 	public function redirectToPaymentUrl($clientLanguage, $paymentClusterKey, $successUrl = null, $canceledUrl = null, $pendingUrl = null, $errorUrl = null, $defaultPaymentMethod = null, $defaultAct = null)
 	{
@@ -681,16 +649,15 @@ class DocdataPayments
 
 		// redirect
 		header('location: ' . $url);
-		exit;
+		exit();
 	}
 
-
-// order methods
+	// order methods
 	/**
 	 * Create a new Simple Order
 	 *
-	 * @param	DocDataPaymentsSimpleOrder $order	The order object
-	 * @return	string
+	 * @param $order DocDataPaymentsSimpleOrder order object
+	 * @return string
 	 */
 	public function simplePaymentOrder(DocdataPaymentsSimpleOrder $order)
 	{
@@ -707,7 +674,6 @@ class DocdataPayments
 		if(isset($response->paymentOrderError->error)) throw new DocdataPaymentsException((string) $response->paymentOrderError->error->_);
 		throw new DocdataPaymentsException('Invalid response');
 	}
-
 
 	public function paymentOrder(DocdataPaymentsOrder $order)
 	{
@@ -727,36 +693,34 @@ class DocdataPayments
 
 }
 
-
 /**
  * Docdata Payments Address class
  *
- * @author			Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
- * @version			1.0.0
- *
- * @copyright		Copyright (c) Tijs Verkoyen. All rights reserved.
- * @license			BSD License
+ * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
+ * @version 1.0.0
+ * @copyright Copyright (c) Tijs Verkoyen. All rights reserved.
+ * @license BSD License
  */
 class DocdataPaymentsAddress
 {
+
 	/**
 	 * String properties
 	 *
-	 * @var	string
+	 * @var string
 	 */
 	public $company, $street, $houseNumber, $houseNumberAddition, $city, $postalCode, $country;
-
 
 	/**
 	 * Create a address object
 	 *
-	 * @param	string $street
-	 * @param	string $houseNumber
-	 * @param	string $postalCode
-	 * @param	string $city
-	 * @param	string $country
-	 * @param	string[optional] $houseNumberAddition
-	 * @param	string[optional] $company
+	 * @param $street string
+	 * @param $houseNumber string
+	 * @param $postalCode string
+	 * @param $city string
+	 * @param $country string
+	 * @param $houseNumberAddition string[optional]
+	 * @param $company string[optional]
 	 */
 	public function __construct($street, $houseNumber, $postalCode, $city, $country, $houseNumberAddition = null, $company = null)
 	{
@@ -781,18 +745,17 @@ class DocdataPaymentsAddress
 	}
 }
 
-
 /**
  * Docdata Payments Name class
  *
- * @author			Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
- * @version			1.0.0
- *
- * @copyright		Copyright (c) Tijs Verkoyen. All rights reserved.
- * @license			BSD License
+ * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
+ * @version 1.0.0
+ * @copyright Copyright (c) Tijs Verkoyen. All rights reserved.
+ * @license BSD License
  */
 class DocdataPaymentsName
 {
+
 	/**
 	 * String properties
 	 *
@@ -800,16 +763,15 @@ class DocdataPaymentsName
 	 */
 	public $prefix, $initials, $first, $middle, $last, $suffix;
 
-
 	/**
 	 * Create a name object
 	 *
-	 * @param	string $first
-	 * @param	string $last
-	 * @param	string[optional] $initials
-	 * @param	string[optional] $prefix
-	 * @param	string[optional] $middle
-	 * @param	string[optional] $suffix
+	 * @param $first string
+	 * @param $last string
+	 * @param $initials string[optional]
+	 * @param $prefix string[optional]
+	 * @param $middle string[optional]
+	 * @param $suffix string[optional]
 	 */
 	public function __construct($first, $last, $initials = null, $prefix = null, $middle = null, $suffix = null)
 	{
@@ -831,18 +793,17 @@ class DocdataPaymentsName
 	}
 }
 
-
 /**
  * Docdata Payments Order class
  *
- * @author			Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
- * @version			1.0.0
- *
- * @copyright		Copyright (c) Tijs Verkoyen. All rights reserved.
- * @license			BSD License
+ * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
+ * @version 1.0.0
+ * @copyright Copyright (c) Tijs Verkoyen. All rights reserved.
+ * @license BSD License
  */
 class DocdataPaymentsOrder extends DocdataPaymentsSimpleOrder
 {
+
 	/**
 	 * Sub object
 	 *
@@ -850,17 +811,14 @@ class DocdataPaymentsOrder extends DocdataPaymentsSimpleOrder
 	 */
 	public $totalNetAmount, $totalVatAmount, $shipTo;
 
-
 	/**
 	 * String properties
 	 *
-	 * @var	string
+	 * @var string
 	 */
 	public $additionalDescription;
 
-
 	public $item;
-
 
 	public function addItem($name, $code, $quantity, $description, $netAmount, $grossAmount, $vat, $vatRate, $vatCountry, $unitOfMeasure = 'PCS', $currency = 'EUR')
 	{
@@ -913,12 +871,11 @@ class DocdataPaymentsOrder extends DocdataPaymentsSimpleOrder
 		$this->item[] = $item;
 	}
 
-
 	/**
 	 * Set the total netto amount
 	 *
-	 * @param	float $value
-	 * @param	string[optional] $currency
+	 * @param $value float
+	 * @param $currency string[optional]
 	 */
 	public function setTotalNetAmount($value, $currency = 'EUR')
 	{
@@ -928,12 +885,11 @@ class DocdataPaymentsOrder extends DocdataPaymentsSimpleOrder
 		$this->totalNetAmount->_ = (string) ((float) $value * 100);
 	}
 
-
 	/**
 	 * Set the total VAT amount
 	 *
-	 * @param	float $value
-	 * @param	string[optional] $currency
+	 * @param $value float
+	 * @param $currency string[optional]
 	 */
 	public function setTotalVatAmount($value, $rate, $currency = 'EUR')
 	{
@@ -944,12 +900,11 @@ class DocdataPaymentsOrder extends DocdataPaymentsSimpleOrder
 		$this->totalVatAmount->_ = (string) ((float) $value * 100);
 	}
 
-
 	/**
 	 * Set the ship to
 	 *
-	 * @param	DocdataPaymentsName $name
-	 * @param	DocdataPaymentsAddress $address
+	 * @param $name DocdataPaymentsName
+	 * @param $address DocdataPaymentsAddress
 	 */
 	public function setShipTo(DocdataPaymentsName $name, DocdataPaymentsAddress $address)
 	{
@@ -960,25 +915,23 @@ class DocdataPaymentsOrder extends DocdataPaymentsSimpleOrder
 	}
 }
 
-
 /**
  * Docdata Payments Simple Order class
  *
- * @author			Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
- * @version			1.0.0
- *
- * @copyright		Copyright (c) Tijs Verkoyen. All rights reserved.
- * @license			BSD License
+ * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
+ * @version 1.0.0
+ * @copyright Copyright (c) Tijs Verkoyen. All rights reserved.
+ * @license BSD License
  */
 class DocdataPaymentsSimpleOrder
 {
+
 	/**
 	 * Sub objects
 	 *
 	 * @var mixed
 	 */
 	public $merchant, $paymentPreferences, $shopper, $menuPreferences, $totalGrossAmount, $merchantOrderReference, $billTo;
-
 
 	/**
 	 * String properties
@@ -987,20 +940,18 @@ class DocdataPaymentsSimpleOrder
 	 */
 	public $description, $receiptText, $version = '0.2';
 
-
 	/**
 	 * Boolean properties
 	 *
-	 * @var	bool
+	 * @var bool
 	 */
 	public $includeCosts;
-
 
 	/**
 	 * Set the bill to
 	 *
-	 * @param	DocdataPaymentsName $name
-	 * @param	DocdataPaymentsAddress $address
+	 * @param $name DocdataPaymentsName
+	 * @param $address DocdataPaymentsAddress
 	 */
 	public function setBillTo(DocdataPaymentsName $name, DocdataPaymentsAddress $address)
 	{
@@ -1010,12 +961,11 @@ class DocdataPaymentsSimpleOrder
 		$this->billTo->address = $address;
 	}
 
-
 	/**
 	 * Set the marchant info
 	 *
-	 * @param	string $name		The name of the merchant.
-	 * @param	string $password	The password.
+	 * @param $name string name of the merchant.
+	 * @param $password string password.
 	 */
 	public function setMerchantInfo($name, $password)
 	{
@@ -1031,11 +981,10 @@ class DocdataPaymentsSimpleOrder
 		$this->merchant->password = (string) $password;
 	}
 
-
 	/**
 	 * Set the merchant order reference
 	 *
-	 * @param	string $reference
+	 * @param $reference string
 	 */
 	public function setMerchantOrderReference($reference)
 	{
@@ -1044,13 +993,12 @@ class DocdataPaymentsSimpleOrder
 		$this->merchantOrderReference = (string) $reference;
 	}
 
-
 	/**
 	 * Set the menu preferences
 	 *
-	 * @param	string $css
-	 * @param	bool[optional] $showCancelButton
-	 * @param	bool[optional] $forceCountry
+	 * @param $css string
+	 * @param $showCancelButton bool[optional]
+	 * @param $forceCountry bool[optional]
 	 */
 	public function setMenuPreferences($css = null, $showCancelButton = null, $forceCountry = null)
 	{
@@ -1060,14 +1008,13 @@ class DocdataPaymentsSimpleOrder
 		if($forceCountry !== null) $this->menuPreferences->forceCountry = (bool) $forceCountry;
 	}
 
-
 	/**
 	 * Set the payment preferences
 	 *
-	 * @param	string[optional] $profile
-	 * @param	int[optional] $numberOfDaysToPay
-	 * @param	string[optional] $exhortation
-	 * @param	string[optional] $template
+	 * @param $profile string[optional]
+	 * @param $numberOfDaysToPay int[optional]
+	 * @param $exhortation string[optional]
+	 * @param $template string[optional]
 	 */
 	public function setPaymentPreferences($profile = 'standard', $numberOfDaysToPay = 30, $exhortation = null, $template = null)
 	{
@@ -1084,18 +1031,17 @@ class DocdataPaymentsSimpleOrder
 		if($template !== null) $this->paymentPreferences->template = $template;
 	}
 
-
 	/**
 	 * Set the shopper
 	 *
-	 * @param	string $id
-	 * @param	DocdataPaymentsName $name
-	 * @param	string $email
-	 * @param	string $language
-	 * @param	string $gender
-	 * @param	string $dateOfBirth
-	 * @param	string $phoneNumber
-	 * @param	string $mobilePhoneNumber
+	 * @param $id string
+	 * @param $name DocdataPaymentsName
+	 * @param $email string
+	 * @param $language string
+	 * @param $gender string
+	 * @param $dateOfBirth string
+	 * @param $phoneNumber string
+	 * @param $mobilePhoneNumber string
 	 */
 	public function setShopper($id, DocdataPaymentsName $name, $email, $language, $gender = 'U', $dateOfBirth = null, $phoneNumber = null, $mobilePhoneNumber = null)
 	{
@@ -1120,12 +1066,11 @@ class DocdataPaymentsSimpleOrder
 		if($mobilePhoneNumber !== null) $this->shopper->mobilePhoneNumber = (string) $mobilePhoneNumber;
 	}
 
-
 	/**
 	 * Set the total gross amount
 	 *
-	 * @param	float $value
-	 * @param	string[optional] $currency
+	 * @param $value float
+	 * @param $currency string[optional]
 	 */
 	public function setTotalGrossAmount($value, $currency = 'EUR')
 	{
@@ -1136,14 +1081,10 @@ class DocdataPaymentsSimpleOrder
 	}
 }
 
-
 /**
  * DocdataPayments Exception class
  *
- * @author	Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
+ * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
 class DocdataPaymentsException extends Exception
-{
-}
-
-?>
+{}
