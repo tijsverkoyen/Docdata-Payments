@@ -11,7 +11,7 @@ $docDataPayments = new DocDataPayments(WSDL);
 
 try {
 } catch (Exception $e) {
-	var_dump($e);
+    var_dump($e);
 }
 
 // output

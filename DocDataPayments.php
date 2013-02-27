@@ -9,98 +9,142 @@ namespace TijsVerkoyen\DocDataPayments;
  * @copyright Copyright (c) Tijs Verkoyen. All rights reserved.
  * @license BSD License
  */
-class DocdataPayments
+class DocDataPayments
 {
-	const DEBUG = true;
-	const VERSION = '2.0.9';
+    const DEBUG = true;
+    const VERSION = '2.0.9';
 
-	/**
-	 * The soapclient
-	 *
-	 * @var BaseSoapClient
-	 */
-	private $soapclient;
+    /**
+     * The soapclient
+     *
+     * @var BaseSoapClient
+     */
+    private $soapclient;
 
-	/**
-	 * The timeout
-	 *
-	 * @var int
-	 */
-	private $timeOut = 30;
+    /**
+     * The timeout
+     *
+     * @var int
+     */
+    private $timeOut = 30;
 
-	/**
-	 * The user agent
-	 *
-	 * @var string
-	 */
-	private $userAgent;
+    /**
+     * The user agent
+     *
+     * @var string
+     */
+    private $userAgent;
 
-	/**
-	 * Returns the SoapClient instance
-	 *
-	 * @return BaseSoapClient
-	 */
-	public function getSoapClient()
-	{
-		// create the client if needed
-		if (!$this->soapclient) {
-			$options = array(
-				'trace' => self::DEBUG,
-				'exceptions' => false,
-				'connection_timeout' => $this->getTimeout(),
-				'user_agent' => $this->getUserAgent(),
-				'cache_wsdl' => WSDL_CACHE_BOTH,
-				'classmap' => $this->classMaps,
-			);
+    /**
+     * The WSDL location
+     *
+     * @var string
+     */
+    private $wsdl;
 
-			$this->soapClient = new \SoapClient($this->getWsdl(), $options);
-		}
+    /**
+     * @var array
+     */
+    private $classMaps = array();
 
-		return $this->soapClient;
-	}
+    /**
+     * Default constructor
+     *
+     * @param string[optional] $wsdl The location of the WSDL-file
+     */
+    public function __construct($wsdl)
+    {
+        if ($wsdl !== null) {
+            $this->setWsdl($wsdl);
+        }
+    }
 
-	/**
-	 * Get the timeout that will be used
-	 *
-	 * @return int
-	 */
-	public function getTimeOut()
-	{
-		return (int) $this->timeOut;
-	}
+    /**
+     * Returns the SoapClient instance
+     *
+     * @return BaseSoapClient
+     */
+    protected function getSoapClient()
+    {
+        // create the client if needed
+        if (!$this->soapclient) {
+            $options = array(
+                'trace' => self::DEBUG,
+                'exceptions' => false,
+                'connection_timeout' => $this->getTimeout(),
+                'user_agent' => $this->getUserAgent(),
+                'cache_wsdl' => WSDL_CACHE_BOTH,
+                'classmap' => $this->classMaps,
+            );
 
-	/**
-	 * Set the timeout
-	 * After this time the request will stop. You should handle any errors triggered by this.
-	 *
-	 * @param int $seconds The timeout in seconds.
-	 */
-	public function setTimeOut($seconds)
-	{
-		$this->timeOut = (int) $seconds;
-	}
+            $this->soapClient = new \SoapClient($this->getWsdl(), $options);
+        }
 
-	/**
-	 * Get the user-agent that will be used.
-	 * Our version will be prepended to yours.
-	 * It will look like: "PHP DocDataPayments/<version> <your-user-agent>"
-	 *
-	 * @return string
-	 */
-	public function getUserAgent()
-	{
-		return (string) 'PHP DocDataPayments/' . self::VERSION . ' ' . $this->userAgent;
-	}
+        return $this->soapClient;
+    }
 
-	/**
-	 * Set the user-agent for you application
-	 * It will be appended to ours, the result will look like:
-	 * "PHP DocDataPayments/<version> <your-user-agent>"
-	 *
-	 * @param string $userAgent Your user-agent, it should look like <app-name>/<app-version>.
-	 */
-	public function setUserAgent($userAgent)
-	{
-		$this->userAgent = (string) $userAgent;
-	}
+    /**
+     * Get the timeout that will be used
+     *
+     * @return int
+     */
+    public function getTimeOut()
+    {
+        return (int) $this->timeOut;
+    }
+
+    /**
+     * Set the timeout
+     * After this time the request will stop. You should handle any errors triggered by this.
+     *
+     * @param int $seconds The timeout in seconds.
+     */
+    public function setTimeOut($seconds)
+    {
+        $this->timeOut = (int) $seconds;
+    }
+
+    /**
+     * Get the user-agent that will be used.
+     * Our version will be prepended to yours.
+     * It will look like: "PHP DocDataPayments/<version> <your-user-agent>"
+     *
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return (string) 'PHP DocDataPayments/' . self::VERSION . ' ' . $this->userAgent;
+    }
+
+    /**
+     * Set the user-agent for you application
+     * It will be appended to ours, the result will look like:
+     * "PHP DocDataPayments/<version> <your-user-agent>"
+     *
+     * @param string $userAgent Your user-agent, it should look like <app-name>/<app-version>.
+     */
+    public function setUserAgent($userAgent)
+    {
+        $this->userAgent = (string) $userAgent;
+    }
+
+    /**
+     * Get the wsdl
+     *
+     * @return string
+     */
+    public function getWsdl()
+    {
+        return (string) $this->wsdl;
+    }
+
+    /**
+     * Set the WSDL to use
+     *
+     * @param string $wsdl
+     */
+    public function setWsdl($wsdl)
+    {
+        $this->wsdl = $wsdl;
+    }
 }
