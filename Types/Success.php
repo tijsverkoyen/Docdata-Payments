@@ -42,5 +42,4 @@ class Success extends BaseObject
     {
         return $this->explanations[$this->code];
     }
-
 }

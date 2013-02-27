@@ -9,12 +9,20 @@ use TijsVerkoyen\DocDataPayments\Types\CreateRequest;
 use TijsVerkoyen\DocDataPayments\Types\CreateSuccess;
 use TijsVerkoyen\DocDataPayments\Types\Destination;
 use TijsVerkoyen\DocDataPayments\Types\Error;
+use TijsVerkoyen\DocDataPayments\Types\Invoice;
+use TijsVerkoyen\DocDataPayments\Types\Item;
 use TijsVerkoyen\DocDataPayments\Types\Language;
+use TijsVerkoyen\DocDataPayments\Types\MenuPreferences;
 use TijsVerkoyen\DocDataPayments\Types\Merchant;
 use TijsVerkoyen\DocDataPayments\Types\Name;
 use TijsVerkoyen\DocDataPayments\Types\PaymentPreferences;
+use TijsVerkoyen\DocDataPayments\Types\PaymentReference;
+use TijsVerkoyen\DocDataPayments\Types\PaymentRequest;
+use TijsVerkoyen\DocDataPayments\Types\PaymentResponse;
+use TijsVerkoyen\DocDataPayments\Types\Quantity;
 use TijsVerkoyen\DocDataPayments\Types\Shopper;
 use TijsVerkoyen\DocDataPayments\Types\Success;
+use TijsVerkoyen\DocDataPayments\Types\Vat;
 
 /**
  * Docdata Payments class
@@ -74,12 +82,20 @@ class DocDataPayments
         'createSuccess' => 'TijsVerkoyen\DocDataPayments\Types\CreateSuccess',
         'destination' => 'TijsVerkoyen\DocDataPayments\Types\Destination',
         'error' => 'TijsVerkoyen\DocDataPayments\Types\Error',
+        'invoice' => 'TijsVerkoyen\DocDataPayments\Types\Invoice',
+        'item' => 'TijsVerkoyen\DocDataPayments\Types\Item',
         'language' => 'TijsVerkoyen\DocDataPayments\Types\Language',
+        'menuPreferences' => 'TijsVerkoyen\DocDataPayments\Types\MenuPreferences',
         'merchant' => 'TijsVerkoyen\DocDataPayments\Types\Merchant',
         'name' => 'TijsVerkoyen\DocDataPayments\Types\name',
         'paymentPreferences' => 'TijsVerkoyen\DocDataPayments\Types\PaymentPreferences',
+        'paymentReference' => 'TijsVerkoyen\DocDataPayments\Types\PaymentReference',
+        'paymentResponse' => 'TijsVerkoyen\DocDataPayments\Types\PaymentResponse',
+        'paymentRequest' => 'TijsVerkoyen\DocDataPayments\Types\PaymentRequest',
+        'quantity' => 'TijsVerkoyen\DocDataPayments\Types\Quantity',
         'shopper' => 'TijsVerkoyen\DocDataPayments\Types\Shopper',
         'success' => 'TijsVerkoyen\DocDataPayments\Types\Success',
+        'vat' => 'TijsVerkoyen\DocDataPayments\Types\Vat',
     );
 
     /**
@@ -196,26 +212,75 @@ class DocDataPayments
         $this->merchant->setPassword($password);
     }
 
+    /**
+     * The goal of the create operation is solely to create a payment order on
+     * Docdata Payments system. Creating a payment order is always the first
+     * step of any workflow in Docdata Payments payment service.
+     *
+     * After an order is created, payments can be made on this order; either
+     * through (the shopper via) the web menu or through the API by the
+     * merchant. If the order has been created using information on specific
+     * order items, the web menu can make use of this information by displaying
+     * a shopping cart.
+     *
+     * @param  string                       $merchantOrderReference
+     * @param  Shopper                      $shopper
+     * @param  Amount                       $totalGrossAmount
+     * @param  Destination                  $billTo
+     * @param  string[optional]             $description
+     * @param  string[optional]             $receiptText
+     * @param  PaymentPreferences[optional] $paymentPreferences
+     * @param  MenuPreferences[optional]    $menuPreferences
+     * @param  PaymentRequest[optional]     $paymentRequest
+     * @param  Invoice[optional]            $invoice
+     * @param  bool[optional]               $includeCosts
+     * @return CreateSuccess
+     */
     public function create(
         $merchantOrderReference,
         Shopper $shopper,
         Amount $totalGrossAmount,
         Destination $billTo,
         PaymentPreferences $paymentPreferences = null,
-        $menuPreferences = null
-    )
-    {
+        $description = null,
+        $receiptText = null,
+        MenuPreferences $menuPreferences = null,
+        PaymentRequest $paymentRequest = null,
+        Invoice $invoice = null,
+        $includeCosts = null
+    ) {
         $createRequest = new CreateRequest();
         $createRequest->setMerchant($this->merchant);
         $createRequest->setMerchantOrderReference($merchantOrderReference);
         $createRequest->setShopper($shopper);
         $createRequest->setTotalGrossAmount($totalGrossAmount);
         $createRequest->setBillTo($billTo);
+        if ($description !== null) {
+            $createRequest->setDescription($description);
+        }
+        if ($receiptText !== null) {
+            $createRequest->setReceiptText($receiptText);
+        }
         if ($paymentPreferences != null) {
             $createRequest->setPaymentPreferences($paymentPreferences);
         }
+        if ($menuPreferences !== null) {
+            $createRequest->setMenuPreferences($menuPreferences);
+        }
+        if ($paymentRequest !== null) {
+            $createRequest->setPaymentRequest($paymentRequest);
+        }
+        if ($invoice !== null) {
+            $createRequest->setInvoice($invoice);
+        }
+        if ($includeCosts !== null) {
+            $createRequest->setIncludeCosts($includeCosts);
+        }
 
-        $response = $this->getSoapClient()->create($createRequest);
+        var_dump($createRequest->toArray());
+
+        // make the call
+        $response = $this->getSoapClient()->create($createRequest->toArray());
 
         // validate response
         if (isset($response->createError)) {

@@ -9,6 +9,8 @@ namespace TijsVerkoyen\DocDataPayments\Types;
 class PaymentPreferences extends BaseObject
 {
     /**
+     * The profile that is used to select the payment methods that can be used
+     * to pay this order.
      * @var string
      */
     protected $profile;
@@ -19,6 +21,13 @@ class PaymentPreferences extends BaseObject
     protected $numberOfDaysToPay;
 
     /**
+     * @var mixed
+     */
+    protected $exhortation;
+
+    /**
+     * The expected number of days in which the payment should be processed, or
+     * be expired if not paid.
      * @param int $numberOfDaysToPay
      */
     public function setNumberOfDaysToPay($numberOfDaysToPay)
@@ -48,5 +57,21 @@ class PaymentPreferences extends BaseObject
     public function getProfile()
     {
         return $this->profile;
+    }
+
+    /**
+     * @param mixed $exhortation
+     */
+    public function setExhortation($exhortation)
+    {
+        $this->exhortation = $exhortation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExhortation()
+    {
+        return $this->exhortation;
     }
 }

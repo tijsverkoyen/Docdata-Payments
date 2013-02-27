@@ -34,6 +34,8 @@ class Language extends BaseObject
      */
     public function __construct($code = null)
     {
-        if($code !== null) $this->setCode($code);
+        if ($code !== null) {
+            $this->setCode($code);
+        }
     }
 }

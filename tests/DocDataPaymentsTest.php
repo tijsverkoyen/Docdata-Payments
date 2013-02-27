@@ -25,6 +25,7 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
         $this->docDataPayments = new DocDataPayments(WSDL);
+        $this->docDataPayments->setCredentials(USERNAME, PASSWORD);
     }
 
     /**
@@ -55,5 +56,53 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
             'PHP DocDataPayments/' . DocDataPayments::VERSION . ' testing/1.0.0',
             $this->docDataPayments->getUserAgent()
         );
+    }
+
+    /**
+     * Tests DocDataPayments->create()
+     */
+    public function testCreate()
+    {
+        $name = new \TijsVerkoyen\DocDataPayments\Types\Name();
+        $name->setFirst('Tijs');
+        $name->setLast('Verkoyen');
+
+        $shopper = new \TijsVerkoyen\DocDataPayments\Types\Shopper();
+        $shopper->setId(1);
+        $shopper->setGender('M');
+        $shopper->setName($name);
+        $shopper->setEmail('php-docdatapayments@verkoyen.eu');
+        $shopper->setLanguage(new \TijsVerkoyen\DocDataPayments\Types\Language('nl'));
+
+        $totalGrossAmount = new \TijsVerkoyen\DocDataPayments\Types\Amount(2000);
+
+        $address = new \TijsVerkoyen\DocDataPayments\Types\Address();
+        $address->setStreet('Kerkstraat');
+        $address->setHouseNumber(108);
+        $address->setPostalCode('9050');
+        $address->setCity('Gentbrugge');
+        $address->setCountry(new \TijsVerkoyen\DocDataPayments\Types\Country('BE'));
+
+        $name = new \TijsVerkoyen\DocDataPayments\Types\Name();
+        $name->setFirst('Tijs');
+        $name->setLast('Verkoyen');
+
+        $billTo = new \TijsVerkoyen\DocDataPayments\Types\Destination();
+        $billTo->setName($name);
+        $billTo->setAddress($address);
+
+        $paymentPreferences = new \TijsVerkoyen\DocDataPayments\Types\PaymentPreferences();
+        $paymentPreferences->setProfile('standard');
+        $paymentPreferences->setNumberOfDaysToPay(4);
+
+        $response = $this->docDataPayments->create(
+            time(),
+            $shopper,
+            $totalGrossAmount,
+            $billTo,
+            $paymentPreferences
+        );
+
+        $this->assertInstanceOf('\TijsVerkoyen\DocDataPayments\Types\CreateSuccess', $response);
     }
 }

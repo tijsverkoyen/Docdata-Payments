@@ -5,43 +5,59 @@ require_once '../../../autoload.php';
 require_once 'config.php';
 
 use \TijsVerkoyen\DocDataPayments\DocDataPayments;
+use \TijsVerkoyen\DocDataPayments\Types\Address;
+use \TijsVerkoyen\DocDataPayments\Types\Amount;
+use \TijsVerkoyen\DocDataPayments\Types\Country;
+use \TijsVerkoyen\DocDataPayments\Types\Destination;
+use \TijsVerkoyen\DocDataPayments\Types\Invoice;
+use \TijsVerkoyen\DocDataPayments\Types\Item;
+use \TijsVerkoyen\DocDataPayments\Types\Language;
+use \TijsVerkoyen\DocDataPayments\Types\MenuPreferences;
+use \TijsVerkoyen\DocDataPayments\Types\Name;
+use \TijsVerkoyen\DocDataPayments\Types\PaymentPreferences;
+use \TijsVerkoyen\DocDataPayments\Types\PaymentReference;
+use \TijsVerkoyen\DocDataPayments\Types\PaymentRequest;
+use \TijsVerkoyen\DocDataPayments\Types\Quantity;
+use \TijsVerkoyen\DocDataPayments\Types\Shopper;
+use \TijsVerkoyen\DocDataPayments\Types\Vat;
 
 // create instance
 $docDataPayments = new DocDataPayments(WSDL);
 $docDataPayments->setCredentials(USERNAME, PASSWORD);
 
 try {
-//    $paymentPreferences = new \TijsVerkoyen\DocDataPayments\Types\PaymentPreferences();
-//    $paymentPreferences->setProfile('standard');
-//    $paymentPreferences->setNumberOfDaysToPay(4);
-//
-//    $name = new \TijsVerkoyen\DocDataPayments\Types\Name();
+    // simple start of payment
+//    $name = new Name();
 //    $name->setFirst('Tijs');
 //    $name->setLast('Verkoyen');
 //
-//    $shopper = new \TijsVerkoyen\DocDataPayments\Types\Shopper();
+//    $shopper = new Shopper();
 //    $shopper->setId(1);
 //    $shopper->setGender('M');
 //    $shopper->setName($name);
 //    $shopper->setEmail('php-docdatapayments@verkoyen.eu');
-//    $shopper->setLanguage(new \TijsVerkoyen\DocDataPayments\Types\Language('nl'));
+//    $shopper->setLanguage(new Language('nl'));
 //
-//    $totalGrossAmount = new \TijsVerkoyen\DocDataPayments\Types\Amount(2000);
+//    $totalGrossAmount = new Amount(2000);
 //
-//    $address = new \TijsVerkoyen\DocDataPayments\Types\Address();
+//    $address = new Address();
 //    $address->setStreet('Kerkstraat');
 //    $address->setHouseNumber(108);
 //    $address->setPostalCode('9050');
 //    $address->setCity('Gentbrugge');
-//    $address->setCountry(new \TijsVerkoyen\DocDataPayments\Types\Country('BE'));
+//    $address->setCountry(new Country('BE'));
 //
-//    $name = new \TijsVerkoyen\DocDataPayments\Types\Name();
+//    $name = new Name();
 //    $name->setFirst('Tijs');
 //    $name->setLast('Verkoyen');
 //
-//    $billTo = new \TijsVerkoyen\DocDataPayments\Types\Destination();
+//    $billTo = new Destination();
 //    $billTo->setName($name);
 //    $billTo->setAddress($address);
+//
+//    $paymentPreferences = new PaymentPreferences();
+//    $paymentPreferences->setProfile('standard');
+//    $paymentPreferences->setNumberOfDaysToPay(4);
 //
 //    $response = $docDataPayments->create(
 //        time(),
@@ -49,6 +65,107 @@ try {
 //        $totalGrossAmount,
 //        $billTo,
 //        $paymentPreferences
+//    );
+//
+//    // extended start of payment, untested
+//    $name = new Name();
+//    $name->setFirst('Tijs');
+//    $name->setLast('Verkoyen');
+//
+//    $shopper = new Shopper();
+//    $shopper->setId(1);
+//    $shopper->setGender('M');
+//    $shopper->setName($name);
+//    $shopper->setEmail('php-docdatapayments@verkoyen.eu');
+//    $shopper->setLanguage(new Language('nl'));
+//
+//    $totalGrossAmount = new Amount(2000);
+//
+//    $address = new Address();
+//    $address->setStreet('Kerkstraat');
+//    $address->setHouseNumber(108);
+//    $address->setPostalCode('9050');
+//    $address->setCity('Gentbrugge');
+//    $address->setCountry(new Country('BE'));
+//
+//    $name = new Name();
+//    $name->setFirst('Tijs');
+//    $name->setLast('Verkoyen');
+//
+//    $billTo = new Destination();
+//    $billTo->setName($name);
+//    $billTo->setAddress($address);
+//
+//    $paymentPreferences = new PaymentPreferences();
+//    $paymentPreferences->setProfile('standard');
+//    $paymentPreferences->setNumberOfDaysToPay(4);
+//
+//    $menuPreferences = new MenuPreferences();
+//
+//    $paymentRequest = null;
+//    // $paymentReference = new PaymentReference();
+//	// $paymentReference->setLinkId(1);
+//	// $paymentRequest = new PaymentRequest();
+//	// $paymentRequest->setPaymentReference($paymentReference);
+//
+//    $vat = new Vat();
+//    $vat->setAmount(new Amount(21));
+//    $vat->setRate(21);
+//    $item = new Item(
+//        1,
+//        'CODE',
+//        'Name',
+//        new Quantity(10),
+//        'Description',
+//        new Amount(100),
+//        new Amount(100),
+//        $vat
+//    );
+//    $vat = new Vat();
+//    $vat->setAmount(new Amount(21));
+//    $vat->setRate(21);
+//    $item->setTotalVat($vat);
+//    $item->setTotalGrossAmount(new Amount(1000));
+//    $item->setTotalNetAmount(new Amount(1000));
+//    $items = array($item);
+//
+//    $address = new Address();
+//    $address->setStreet('Kerkstraat');
+//    $address->setHouseNumber(108);
+//    $address->setPostalCode('9050');
+//    $address->setCity('Gentbrugge');
+//    $address->setCountry(new Country('BE'));
+//
+//    $name = new Name();
+//    $name->setFirst('Tijs');
+//    $name->setLast('Verkoyen');
+//
+//    $shipTo = new Destination();
+//    $shipTo->setName($name);
+//    $shipTo->setAddress($address);
+//
+//    $vat = new Vat();
+//    $vat->setAmount(new Amount(210));
+//    $vat->setRate(21);
+//
+//    $invoice = new Invoice();
+//    $invoice->setTotalNetAmount(new Amount(1000));
+//    $invoice->setTotalVatAmount($vat);
+//    $invoice->setItem($items);
+//    $invoice->setShipTo($shipTo);
+//
+//    $response = $docDataPayments->create(
+//        time(),
+//        $shopper,
+//        $totalGrossAmount,
+//        $billTo,
+//        'Description',
+//        'ReceiptText',
+//        $paymentPreferences,
+//        $menuPreferences,
+//        $paymentRequest,
+//        $invoice,
+//        true
 //    );
 } catch (Exception $e) {
     var_dump($e);

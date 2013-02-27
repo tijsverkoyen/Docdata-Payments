@@ -41,4 +41,12 @@ class Amount extends BaseObject
     {
         return $this->currency;
     }
+
+    public function toArray()
+    {
+        return array(
+            '_' => $this->_,
+            'currency' => $this->getCurrency()
+        );
+    }
 }
