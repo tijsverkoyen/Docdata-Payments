@@ -9,9 +9,12 @@ use TijsVerkoyen\DocDataPayments\Types\CreateRequest;
 use TijsVerkoyen\DocDataPayments\Types\CreateSuccess;
 use TijsVerkoyen\DocDataPayments\Types\Destination;
 use TijsVerkoyen\DocDataPayments\Types\Error;
+use TijsVerkoyen\DocDataPayments\Types\Language;
 use TijsVerkoyen\DocDataPayments\Types\Merchant;
 use TijsVerkoyen\DocDataPayments\Types\Name;
 use TijsVerkoyen\DocDataPayments\Types\PaymentPreferences;
+use TijsVerkoyen\DocDataPayments\Types\Shopper;
+use TijsVerkoyen\DocDataPayments\Types\Success;
 
 /**
  * Docdata Payments class
@@ -24,12 +27,12 @@ use TijsVerkoyen\DocDataPayments\Types\PaymentPreferences;
 class DocDataPayments
 {
     const DEBUG = true;
-    const VERSION = '2.0.9';
+    const VERSION = '2.0.0';
 
-	/**
-	 * @var Merchant
-	 */
-	private $merchant;
+    /**
+     * @var Merchant
+     */
+    private $merchant;
 
     /**
      * The soapclient
@@ -63,15 +66,20 @@ class DocDataPayments
      * @var array
      */
     private $classMaps = array(
-	    'address' => 'TijsVerkoyen\DocDataPayments\Types\Address',
-	    'amount' => 'TijsVerkoyen\DocDataPayments\Types\Amount',
-	    'country' => 'TijsVerkoyen\DocDataPayments\Types\Country',
-	    'createError' => 'TijsVerkoyen\DocDataPayments\Types\CreateError',
-	    'destination' => 'TijsVerkoyen\DocDataPayments\Types\Destination',
-	    'error' => 'TijsVerkoyen\DocDataPayments\Types\Error',
-	    'merchant' => 'TijsVerkoyen\DocDataPayments\Types\Merchant',
-	    'name' => 'TijsVerkoyen\DocDataPayments\Types\name',
-	    'paymentPreferences' => 'TijsVerkoyen\DocDataPayments\Types\PaymentPreferences',
+        'address' => 'TijsVerkoyen\DocDataPayments\Types\Address',
+        'amount' => 'TijsVerkoyen\DocDataPayments\Types\Amount',
+        'country' => 'TijsVerkoyen\DocDataPayments\Types\Country',
+        'createError' => 'TijsVerkoyen\DocDataPayments\Types\CreateError',
+        'createRequest' => 'TijsVerkoyen\DocDataPayments\Types\CreateRequest',
+        'createSuccess' => 'TijsVerkoyen\DocDataPayments\Types\CreateSuccess',
+        'destination' => 'TijsVerkoyen\DocDataPayments\Types\Destination',
+        'error' => 'TijsVerkoyen\DocDataPayments\Types\Error',
+        'language' => 'TijsVerkoyen\DocDataPayments\Types\Language',
+        'merchant' => 'TijsVerkoyen\DocDataPayments\Types\Merchant',
+        'name' => 'TijsVerkoyen\DocDataPayments\Types\name',
+        'paymentPreferences' => 'TijsVerkoyen\DocDataPayments\Types\PaymentPreferences',
+        'shopper' => 'TijsVerkoyen\DocDataPayments\Types\Shopper',
+        'success' => 'TijsVerkoyen\DocDataPayments\Types\Success',
     );
 
     /**
@@ -100,7 +108,7 @@ class DocDataPayments
                 'exceptions' => false,
                 'connection_timeout' => $this->getTimeout(),
                 'user_agent' => $this->getUserAgent(),
-                'cache_wsdl' => WSDL_CACHE_BOTH,
+                'cache_wsdl' => (self::DEBUG) ? false : WSDL_CACHE_BOTH,
                 'classmap' => $this->classMaps,
             );
 
@@ -175,16 +183,52 @@ class DocDataPayments
         $this->wsdl = $wsdl;
     }
 
-	/**
-	 * Set the credentials that will be used
-	 *
-	 * @param string $username
-	 * @param string $password
-	 */
-	public function setCredentials($username, $password)
-	{
-		$this->merchant = new Merchant();
-		$this->merchant->setName($username);
-		$this->merchant->setPassword($password);
-	}
+    /**
+     * Set the credentials that will be used
+     *
+     * @param string $username
+     * @param string $password
+     */
+    public function setCredentials($username, $password)
+    {
+        $this->merchant = new Merchant();
+        $this->merchant->setName($username);
+        $this->merchant->setPassword($password);
+    }
+
+    public function create(
+        $merchantOrderReference,
+        Shopper $shopper,
+        Amount $totalGrossAmount,
+        Destination $billTo,
+        PaymentPreferences $paymentPreferences = null,
+        $menuPreferences = null
+    )
+    {
+        $createRequest = new CreateRequest();
+        $createRequest->setMerchant($this->merchant);
+        $createRequest->setMerchantOrderReference($merchantOrderReference);
+        $createRequest->setShopper($shopper);
+        $createRequest->setTotalGrossAmount($totalGrossAmount);
+        $createRequest->setBillTo($billTo);
+        if ($paymentPreferences != null) {
+            $createRequest->setPaymentPreferences($paymentPreferences);
+        }
+
+        $response = $this->getSoapClient()->create($createRequest);
+
+        // validate response
+        if (isset($response->createError)) {
+            if (self::DEBUG) {
+                var_dump($this->soapClient->__getLastRequest());
+                var_dump($response->createError);
+            }
+
+            throw new Exception(
+                $response->createError->getError()->getExplanation()
+            );
+        }
+
+        return $response->createSuccess;
+    }
 }

@@ -8,45 +8,45 @@ namespace TijsVerkoyen\DocDataPayments\Types;
  */
 class Merchant extends BaseObject
 {
-	/**
-	 * @var string
-	 */
-	protected $name;
+    /**
+     * @var string
+     */
+    protected $name;
 
-	/**
-	 * @var string
-	 */
-	protected $password;
+    /**
+     * @var string
+     */
+    protected $password;
 
-	/**
-	 * @param string $name
-	 */
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getName()
-	{
-		return $this->name;
-	}
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * @param string $password
-	 */
-	public function setPassword($password)
-	{
-		$this->password = $password;
-	}
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getPassword()
-	{
-		return $this->password;
-	}
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
 }

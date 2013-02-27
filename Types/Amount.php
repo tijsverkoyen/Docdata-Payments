@@ -8,37 +8,37 @@ namespace TijsVerkoyen\DocDataPayments\Types;
  */
 class Amount extends BaseObject
 {
-	/**
-	 * @var int
-	 */
-	private $_;
+    /**
+     * @var int
+     */
+    private $_;
 
-	/**
-	 * @var string
-	 */
-	private $currency = 'EUR';
+    /**
+     * @var string
+     */
+    private $currency = 'EUR';
 
-	/**
-	 * @param int $number
-	 */
-	public function __construct($number)
-	{
-		$this->_ = $number;
-	}
+    /**
+     * @param int $number
+     */
+    public function __construct($number)
+    {
+        $this->_ = $number;
+    }
 
-	/**
-	 * @param string $currency
-	 */
-	public function setCurrency($currency)
-	{
-		$this->currency = $currency;
-	}
+    /**
+     * @param string $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getCurrency()
-	{
-		return $this->currency;
-	}
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
 }

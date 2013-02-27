@@ -2,11 +2,11 @@
 namespace TijsVerkoyen\DocDataPayments\Types;
 
 /**
- * DocDataPayments Country class
+ * DocDataPayments Language class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Country extends BaseObject
+class Language extends BaseObject
 {
     /**
      * @var string

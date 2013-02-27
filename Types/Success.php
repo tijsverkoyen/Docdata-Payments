@@ -2,11 +2,11 @@
 namespace TijsVerkoyen\DocDataPayments\Types;
 
 /**
- * DocDataPayments Error class
+ * DocDataPayments Success class
  *
- * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
+ * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Error extends BaseObject
+class Success extends BaseObject
 {
     /**
      * @var string
@@ -14,11 +14,7 @@ class Error extends BaseObject
     private $code;
 
     private $explanations = array(
-        'UNKNOWN_ERROR' => 'The reason of error is unknown.',
-        'REQUEST_DATA_MISSING' => 'Request data is missing.',
-        'REQUEST_DATA_INCORRECT' => 'Request data is incorrect.',
-        'SECURITY_ERROR' => 'Error related to security violations such as login failure or not allowed IP.',
-        'INTERNAL_ERROR' => 'Payment system error.',
+        'SUCCESS' => 'The operation was generally successful.',
     );
 
     /**

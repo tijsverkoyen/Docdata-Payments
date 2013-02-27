@@ -8,15 +8,14 @@ namespace TijsVerkoyen\DocDataPayments\Types;
  */
 class PaymentPreferences extends BaseObject
 {
-	/**
-	 * @var string
-	 */
-	public $profile;
+    /**
+     * @var string
+     */
+    public $profile;
 
-	/**
-	 * @var int
-	 */
-	public $numberOfDaysToPay;
-
+    /**
+     * @var int
+     */
+    public $numberOfDaysToPay;
 
 }

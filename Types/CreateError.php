@@ -8,24 +8,24 @@ namespace TijsVerkoyen\DocDataPayments\Types;
  */
 class CreateError extends BaseObject
 {
-	/**
-	 * @var Error
-	 */
-	private $error;
+    /**
+     * @var Error
+     */
+    private $error;
 
-	/**
-	 * @param \TijsVerkoyen\DocDataPayments\Types\Error $error
-	 */
-	public function setError($error)
-	{
-		$this->error = $error;
-	}
+    /**
+     * @param \TijsVerkoyen\DocDataPayments\Types\Error $error
+     */
+    public function setError($error)
+    {
+        $this->error = $error;
+    }
 
-	/**
-	 * @return \TijsVerkoyen\DocDataPayments\Types\Error
-	 */
-	public function getError()
-	{
-		return $this->error;
-	}
+    /**
+     * @return \TijsVerkoyen\DocDataPayments\Types\Error
+     */
+    public function getError()
+    {
+        return $this->error;
+    }
 }
