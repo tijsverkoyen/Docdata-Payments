@@ -4,10 +4,10 @@
 require_once '../../../autoload.php';
 require_once 'config.php';
 
-use \TijsVerkoyen\DocDataPayments\DocDataPayment;
+use \TijsVerkoyen\DocDataPayments\DocDataPayments;
 
 // create instance
-$dbFact = new DocDataPayments();
+$docDataPayments = new DocDataPayments(WSDL);
 
 try {
 } catch (Exception $e) {
