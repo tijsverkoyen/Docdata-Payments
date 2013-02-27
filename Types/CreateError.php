@@ -11,12 +11,12 @@ class CreateError extends BaseObject
     /**
      * @var Error
      */
-    private $error;
+    protected $error;
 
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Error $error
      */
-    public function setError($error)
+    public function setError(Error $error)
     {
         $this->error = $error;
     }

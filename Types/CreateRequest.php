@@ -105,7 +105,7 @@ class CreateRequest extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Destination $billTo
      */
-    public function setBillTo($billTo)
+    public function setBillTo(Destination $billTo)
     {
         $this->billTo = $billTo;
     }
@@ -153,7 +153,7 @@ class CreateRequest extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Invoice $invoice
      */
-    public function setInvoice($invoice)
+    public function setInvoice(Invoice $invoice)
     {
         $this->invoice = $invoice;
     }
@@ -169,7 +169,7 @@ class CreateRequest extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\MenuPreferences $menuPreferences
      */
-    public function setMenuPreferences($menuPreferences)
+    public function setMenuPreferences(MenuPreferences $menuPreferences)
     {
         $this->menuPreferences = $menuPreferences;
     }
@@ -185,7 +185,7 @@ class CreateRequest extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Merchant $merchant
      */
-    public function setMerchant($merchant)
+    public function setMerchant(Merchant $merchant)
     {
         $this->merchant = $merchant;
     }
@@ -217,7 +217,7 @@ class CreateRequest extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\PaymentPreferences $paymentPreferences
      */
-    public function setPaymentPreferences($paymentPreferences)
+    public function setPaymentPreferences(PaymentPreferences $paymentPreferences)
     {
         $this->paymentPreferences = $paymentPreferences;
     }
@@ -233,7 +233,7 @@ class CreateRequest extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\PaymentRequest $paymentRequest
      */
-    public function setPaymentRequest($paymentRequest)
+    public function setPaymentRequest(PaymentRequest $paymentRequest)
     {
         $this->paymentRequest = $paymentRequest;
     }
@@ -265,7 +265,7 @@ class CreateRequest extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Shopper $shopper
      */
-    public function setShopper($shopper)
+    public function setShopper(Shopper $shopper)
     {
         $this->shopper = $shopper;
     }
@@ -281,7 +281,7 @@ class CreateRequest extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Amount $totalGrossAmount
      */
-    public function setTotalGrossAmount($totalGrossAmount)
+    public function setTotalGrossAmount(Amount $totalGrossAmount)
     {
         $this->totalGrossAmount = $totalGrossAmount;
     }

@@ -13,19 +13,19 @@ class Destination extends BaseObject
      *
      * @var Name
      */
-    private $name;
+    protected $name;
 
     /**
      * Address of the destination.
      *
      * @var Address
      */
-    private $address;
+    protected $address;
 
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Address $address
      */
-    public function setAddress($address)
+    public function setAddress(Address $address)
     {
         $this->address = $address;
     }
@@ -41,7 +41,7 @@ class Destination extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Name $name
      */
-    public function setName($name)
+    public function setName(Name $name)
     {
         $this->name = $name;
     }

@@ -12,8 +12,8 @@ $docDataPayments->setCredentials(USERNAME, PASSWORD);
 
 try {
 //    $paymentPreferences = new \TijsVerkoyen\DocDataPayments\Types\PaymentPreferences();
-//    $paymentPreferences->profile = 'standard';
-//    $paymentPreferences->numberOfDaysToPay = 4;
+//    $paymentPreferences->setProfile('standard');
+//    $paymentPreferences->setNumberOfDaysToPay(4);
 //
 //    $name = new \TijsVerkoyen\DocDataPayments\Types\Name();
 //    $name->setFirst('Tijs');

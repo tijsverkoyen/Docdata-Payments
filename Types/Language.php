@@ -11,7 +11,7 @@ class Language extends BaseObject
     /**
      * @var string
      */
-    private $code;
+    protected $code;
 
     /**
      * @param string $code

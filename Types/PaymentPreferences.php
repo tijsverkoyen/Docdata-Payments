@@ -11,11 +11,42 @@ class PaymentPreferences extends BaseObject
     /**
      * @var string
      */
-    public $profile;
+    protected $profile;
 
     /**
      * @var int
      */
-    public $numberOfDaysToPay;
+    protected $numberOfDaysToPay;
 
+    /**
+     * @param int $numberOfDaysToPay
+     */
+    public function setNumberOfDaysToPay($numberOfDaysToPay)
+    {
+        $this->numberOfDaysToPay = $numberOfDaysToPay;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfDaysToPay()
+    {
+        return $this->numberOfDaysToPay;
+    }
+
+    /**
+     * @param string $profile
+     */
+    public function setProfile($profile)
+    {
+        $this->profile = $profile;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfile()
+    {
+        return $this->profile;
+    }
 }

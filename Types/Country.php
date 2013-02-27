@@ -11,7 +11,7 @@ class Country extends BaseObject
     /**
      * @var string
      */
-    private $code;
+    protected $code;
 
     /**
      * @param string $code
@@ -30,7 +30,7 @@ class Country extends BaseObject
     }
 
     /**
-     * @param null $code
+     * @param string[optional] $code
      */
     public function __construct($code = null)
     {

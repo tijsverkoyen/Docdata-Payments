@@ -11,42 +11,42 @@ class Address extends BaseObject
     /**
      * @var string
      */
-    private $company;
+    protected $company;
 
     /**
      * Address lines must be filled as specific as possible using the house
      * number and optionally the house number addition field.
      * @var string
      */
-    private $street;
+    protected $street;
 
     /**
      * The house number.
      *
      * @var string
      */
-    private $houseNumber;
+    protected $houseNumber;
 
     /**
      * The addition to the house number.
      * @var string
      */
-    private $houseNumberAddition;
+    protected $houseNumberAddition;
 
     /**
      * @var string
      */
-    private $postalCode;
+    protected $postalCode;
 
     /**
      * @var string
      */
-    private $city;
+    protected $city;
 
     /**
      * @var Country
      */
-    private $country;
+    protected $country;
 
     /**
      * @param string $city
@@ -83,7 +83,7 @@ class Address extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Country $country
      */
-    public function setCountry($country)
+    public function setCountry(Country $country)
     {
         $this->country = $country;
     }

@@ -12,48 +12,48 @@ class Shopper extends BaseObject
      * Shopper's full name.
      * @var Name
      */
-    private $name;
+    protected $name;
 
     /**
      * Shopper's e-mail address.
      * @var string
      */
-    private $email;
+    protected $email;
 
     /**
      * Shopper's preferred language.
      * @var Language
      */
-    private $language;
+    protected $language;
 
     /**
      * Shopper's gender.
      * @var string
      */
-    private $gender = 'U';
+    protected $gender = 'U';
 
     /**
      * Shopper's date of birth.
      * @var string
      */
-    private $dateOfBirth;
+    protected $dateOfBirth;
 
     /**
      * Shopper's phone number.
      * @var string
      */
-    private $phoneNumber;
+    protected $phoneNumber;
 
     /**
      * Shopper's mobile phone number.
      * @var string
      */
-    private $mobilePhoneNumber;
+    protected $mobilePhoneNumber;
 
     /**
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * @param string $dateOfBirth
@@ -72,11 +72,11 @@ class Shopper extends BaseObject
     }
 
     /**
-     * @param string $emailAddress
+     * @param string $email
      */
-    public function setEmail($emailAddress)
+    public function setEmail($email)
     {
-        $this->email = $emailAddress;
+        $this->email = $email;
     }
 
     /**
@@ -122,7 +122,7 @@ class Shopper extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Language $language
      */
-    public function setLanguage($language)
+    public function setLanguage(Language $language)
     {
         $this->language = $language;
     }
@@ -154,7 +154,7 @@ class Shopper extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Name $name
      */
-    public function setName($name)
+    public function setName(Name $name)
     {
         $this->name = $name;
     }

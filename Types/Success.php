@@ -11,9 +11,9 @@ class Success extends BaseObject
     /**
      * @var string
      */
-    private $code;
+    protected $code;
 
-    private $explanations = array(
+    protected $explanations = array(
         'SUCCESS' => 'The operation was generally successful.',
     );
 

@@ -12,17 +12,17 @@ class CreateSuccess extends BaseObject
      * Generated key identifying the merchant and payment order.
      * @var string
      */
-    private $key;
+    protected $key;
 
     /**
      * @var Success
      */
-    private $success;
+    protected $success;
 
     /**
      * @var PaymentResponse
      */
-    private $paymentResponse;
+    protected $paymentResponse;
 
     /**
      * @param string $key
@@ -43,7 +43,7 @@ class CreateSuccess extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\PaymentResponse $paymentResponse
      */
-    public function setPaymentResponse($paymentResponse)
+    public function setPaymentResponse(PaymentResponse $paymentResponse)
     {
         $this->paymentResponse = $paymentResponse;
     }
@@ -59,7 +59,7 @@ class CreateSuccess extends BaseObject
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Success $success
      */
-    public function setSuccess($success)
+    public function setSuccess(Success $success)
     {
         $this->success = $success;
     }
