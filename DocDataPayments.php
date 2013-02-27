@@ -1,7 +1,16 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments;
 
+use TijsVerkoyen\DocDataPayments\Types\Address;
+use TijsVerkoyen\DocDataPayments\Types\Country;
+use TijsVerkoyen\DocDataPayments\Types\CreateError;
+use TijsVerkoyen\DocDataPayments\Types\CreateRequest;
+use TijsVerkoyen\DocDataPayments\Types\CreateSuccess;
+use TijsVerkoyen\DocDataPayments\Types\Destination;
+use TijsVerkoyen\DocDataPayments\Types\Error;
 use TijsVerkoyen\DocDataPayments\Types\Merchant;
+use TijsVerkoyen\DocDataPayments\Types\Name;
+use TijsVerkoyen\DocDataPayments\Types\PaymentPreferences;
 
 /**
  * Docdata Payments class
