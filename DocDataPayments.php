@@ -52,7 +52,10 @@ class DocDataPayments
     /**
      * @var array
      */
-    private $classMaps = array();
+    private $classMaps = array(
+	    'createError' => 'TijsVerkoyen\DocDataPayments\Types\CreateError',
+	    'error' => 'TijsVerkoyen\DocDataPayments\Types\Error',
+    );
 
     /**
      * Default constructor
