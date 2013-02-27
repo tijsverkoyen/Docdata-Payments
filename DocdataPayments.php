@@ -1,26 +1,11 @@
 <?php
+namespace TijsVerkoyen\DocdataPayments;
 
 /**
  * Docdata Payments class
  *
- * This source file can be used to communicate with Docdata Payments (http://www.docdatapayments.com)
- *
- * The class is documented in the file itself. If you find any bugs help me out and report them. Reporting can be done by sending an email to php-docdatapayments-bugs[at]verkoyen[dot]eu.
- * If you report a bug, make sure you give me enough information (include your code).
- *
- * License
- * Copyright (c) Tijs Verkoyen. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
- * 3. The name of the author may not be used to endorse or promote products derived from this software without specific prior written permission.
- *
- * This software is provided by the author "as is" and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.
- *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
- * @version 1.0.0
+ * @version 2.0.0
  * @copyright Copyright (c) Tijs Verkoyen. All rights reserved.
  * @license BSD License
  */
@@ -147,7 +132,7 @@ class DocdataPayments
 			}
 
 			// throw exception
-			throw new DocdataPaymentsException($message);
+			throw new Exception($message);
 		}
 
 		// validate response
@@ -163,7 +148,7 @@ class DocdataPayments
 			}
 
 			// throw exception
-			throw new DocdataPaymentsException($message);
+			throw new Exception($message);
 		}
 
 		// return the response
@@ -227,17 +212,17 @@ class DocdataPayments
 			}
 
 			// throw error
-			throw new DocdataPaymentsException('Invalid headers (' . $headers['http_code'] . ')', (int) $headers['http_code']);
+			throw new Exception('Invalid headers (' . $headers['http_code'] . ')', (int) $headers['http_code']);
 		}
 
 		// error?
-		if($errorNumber != '') throw new DocdataPaymentsException($errorMessage, $errorNumber);
+		if($errorNumber != '') throw new Exception($errorMessage, $errorNumber);
 
 		// we expect XML so decode it
 		$xml = @simplexml_load_string($response);
 
 		// validate XML
-		if($xml === false) throw new DocdataPaymentsException('Invalid XML-response');
+		if($xml === false) throw new Exception('Invalid XML-response');
 
 		// return
 		return $xml;
@@ -353,7 +338,7 @@ class DocdataPayments
 		$mode = (string) $mode;
 
 		// validate
-		if(!in_array($mode, array('test', 'production'))) throw new DocdataPaymentsException('Invalid mode, possible values are: test, production.');
+		if(!in_array($mode, array('test', 'production'))) throw new Exception('Invalid mode, possible values are: test, production.');
 
 		$this->mode = $mode;
 	}
@@ -425,7 +410,7 @@ class DocdataPayments
 		$response = $this->doRestCall($base . '?' . http_build_query($parameters));
 
 		// validate
-		if(!isset($response->msg['value'])) throw new DocdataPaymentsException('Invalid response');
+		if(!isset($response->msg['value'])) throw new Exception('Invalid response');
 
 		// get the message
 		$message = (string) $response->msg['value'];
@@ -546,7 +531,7 @@ class DocdataPayments
 		$response = $this->doRestCall($base . '?' . http_build_query($parameters));
 
 		// validate
-		if(!isset($response->msg['value'])) throw new DocdataPaymentsException('Invalid response');
+		if(!isset($response->msg['value'])) throw new Exception('Invalid response');
 
 		// get the message
 		$message = (string) $response->msg['value'];
@@ -671,8 +656,8 @@ class DocdataPayments
 		if(isset($response->paymentOrderSuccess->key)) return $response->paymentOrderSuccess->key;
 
 		// error handling
-		if(isset($response->paymentOrderError->error)) throw new DocdataPaymentsException((string) $response->paymentOrderError->error->_);
-		throw new DocdataPaymentsException('Invalid response');
+		if(isset($response->paymentOrderError->error)) throw new Exception((string) $response->paymentOrderError->error->_);
+		throw new Exception('Invalid response');
 	}
 
 	public function paymentOrder(DocdataPaymentsOrder $order)
@@ -687,8 +672,8 @@ class DocdataPayments
 		if(isset($response->paymentOrderSuccess->key)) return $response->paymentOrderSuccess->key;
 
 		// error handling
-		if(isset($response->paymentOrderError->error)) throw new DocdataPaymentsException((string) $response->paymentOrderError->error->_);
-		throw new DocdataPaymentsException('Invalid response');
+		if(isset($response->paymentOrderError->error)) throw new Exception((string) $response->paymentOrderError->error->_);
+		throw new Exception('Invalid response');
 	}
 
 }
@@ -725,12 +710,12 @@ class DocdataPaymentsAddress
 	public function __construct($street, $houseNumber, $postalCode, $city, $country, $houseNumberAddition = null, $company = null)
 	{
 		// validate
-		if(mb_strlen($company) > 35) throw new DocdataPaymentsException('Company can\'t be longer then 35chars.');
-		if(mb_strlen($street) > 35) throw new DocdataPaymentsException('Street can\'t be longer then 35chars.');
-		if(mb_strlen($houseNumber) > 35) throw new DocdataPaymentsException('Housenumber can\'t be longer then 35chars.');
-		if(mb_strlen($houseNumberAddition) > 35) throw new DocdataPaymentsException('HouseNumberAddition can\'t be longer then 35chars.');
-		if(mb_strlen($postalCode) > 35) throw new DocdataPaymentsException('PostalCode can\'t be longer then 35chars.');
-		if(mb_strlen($city) > 35) throw new DocdataPaymentsException('City can\'t be longer then 35chars.');
+		if(mb_strlen($company) > 35) throw new Exception('Company can\'t be longer then 35chars.');
+		if(mb_strlen($street) > 35) throw new Exception('Street can\'t be longer then 35chars.');
+		if(mb_strlen($houseNumber) > 35) throw new Exception('Housenumber can\'t be longer then 35chars.');
+		if(mb_strlen($houseNumberAddition) > 35) throw new Exception('HouseNumberAddition can\'t be longer then 35chars.');
+		if(mb_strlen($postalCode) > 35) throw new Exception('PostalCode can\'t be longer then 35chars.');
+		if(mb_strlen($city) > 35) throw new Exception('City can\'t be longer then 35chars.');
 
 		// set properties
 		$this->street = (string) $street;
@@ -776,12 +761,12 @@ class DocdataPaymentsName
 	public function __construct($first, $last, $initials = null, $prefix = null, $middle = null, $suffix = null)
 	{
 		// validate
-		if(mb_strlen($prefix) > 50) throw new DocdataPaymentsException('Prefix can\'t be longer then 50chars.');
-		if(mb_strlen($initials) > 35) throw new DocdataPaymentsException('Initials can\'t be longer then 35chars.');
-		if(mb_strlen($first) > 35) throw new DocdataPaymentsException('First can\'t be longer then 35chars.');
-		if(mb_strlen($middle) > 35) throw new DocdataPaymentsException('Middle can\'t be longer then 35chars.');
-		if(mb_strlen($last) > 35) throw new DocdataPaymentsException('Last can\'t be longer then 35chars.');
-		if(mb_strlen($suffix) > 50) throw new DocdataPaymentsException('Suffix can\'t be longer then 50chars.');
+		if(mb_strlen($prefix) > 50) throw new Exception('Prefix can\'t be longer then 50chars.');
+		if(mb_strlen($initials) > 35) throw new Exception('Initials can\'t be longer then 35chars.');
+		if(mb_strlen($first) > 35) throw new Exception('First can\'t be longer then 35chars.');
+		if(mb_strlen($middle) > 35) throw new Exception('Middle can\'t be longer then 35chars.');
+		if(mb_strlen($last) > 35) throw new Exception('Last can\'t be longer then 35chars.');
+		if(mb_strlen($suffix) > 50) throw new Exception('Suffix can\'t be longer then 50chars.');
 
 		// set properties
 		$this->first = (string) $first;
@@ -823,10 +808,10 @@ class DocdataPaymentsOrder extends DocdataPaymentsSimpleOrder
 	public function addItem($name, $code, $quantity, $description, $netAmount, $grossAmount, $vat, $vatRate, $vatCountry, $unitOfMeasure = 'PCS', $currency = 'EUR')
 	{
 		// validate
-		if(mb_strlen($name) > 50) throw new DocdataPaymentsException('Name can\'t be longer then 50chars.');
-		if(mb_strlen($code) > 50) throw new DocdataPaymentsException('Code can\'t be longer then 50chars.');
-		if(!in_array($unitOfMeasure, array('PCS', 'SEC', 'BYT', 'KB'))) throw new DocdataPaymentsException('Invalid value for unitOfMeasure, possible values are: PCS, SEC, BYT, KB');
-		if(mb_strlen($description) > 100) throw new DocdataPaymentsException('Description can\'t be longer then 100chars.');
+		if(mb_strlen($name) > 50) throw new Exception('Name can\'t be longer then 50chars.');
+		if(mb_strlen($code) > 50) throw new Exception('Code can\'t be longer then 50chars.');
+		if(!in_array($unitOfMeasure, array('PCS', 'SEC', 'BYT', 'KB'))) throw new Exception('Invalid value for unitOfMeasure, possible values are: PCS, SEC, BYT, KB');
+		if(mb_strlen($description) > 100) throw new Exception('Description can\'t be longer then 100chars.');
 
 		$item = new stdClass();
 		$item->number = (count($this->item) + 1);
@@ -970,8 +955,8 @@ class DocdataPaymentsSimpleOrder
 	public function setMerchantInfo($name, $password)
 	{
 		// validate
-		if(mb_strlen($name) > 50) throw new DocdataPaymentsException('Name can\'t be longer then 50chars.');
-		if(mb_strlen($password) > 35) throw new DocdataPaymentsException('Password can\'t be longer then 35chars.');
+		if(mb_strlen($name) > 50) throw new Exception('Name can\'t be longer then 50chars.');
+		if(mb_strlen($password) > 35) throw new Exception('Password can\'t be longer then 35chars.');
 
 		// init if needed
 		if($this->merchant === null) $this->merchant = new stdClass();
@@ -988,7 +973,7 @@ class DocdataPaymentsSimpleOrder
 	 */
 	public function setMerchantOrderReference($reference)
 	{
-		if(mb_strlen($reference) > 50) throw new DocdataPaymentsException('MerchantOrderReference can\'t be longer then 50chars.');
+		if(mb_strlen($reference) > 50) throw new Exception('MerchantOrderReference can\'t be longer then 50chars.');
 
 		$this->merchantOrderReference = (string) $reference;
 	}
@@ -1019,7 +1004,7 @@ class DocdataPaymentsSimpleOrder
 	public function setPaymentPreferences($profile = 'standard', $numberOfDaysToPay = 30, $exhortation = null, $template = null)
 	{
 		// validate
-		if(mb_strlen($profile) > 50) throw new DocdataPaymentsException('Profile can\'t be longer then 50chars.');
+		if(mb_strlen($profile) > 50) throw new Exception('Profile can\'t be longer then 50chars.');
 
 		// init if needed
 		if($this->paymentPreferences === null) $this->paymentPreferences = new stdClass();
@@ -1046,10 +1031,10 @@ class DocdataPaymentsSimpleOrder
 	public function setShopper($id, DocdataPaymentsName $name, $email, $language, $gender = 'U', $dateOfBirth = null, $phoneNumber = null, $mobilePhoneNumber = null)
 	{
 		// validate
-		if(!in_array($gender, array('M', 'F', 'U'))) throw new DocdataPaymentsException('Invalid value for gender, possible values are: M, F, U.');
-		if(mb_strlen($id) > 35) throw new DocdataPaymentsException('Id can\'t be longer then 35chars.');
-		if(mb_strlen($phoneNumber) > 50) throw new DocdataPaymentsException('PhoneNumber can\'t be longer then 50chars.');
-		if(mb_strlen($mobilePhoneNumber) > 50) throw new DocdataPaymentsException('MobilePhoneNumber can\'t be longer then 50chars.');
+		if(!in_array($gender, array('M', 'F', 'U'))) throw new Exception('Invalid value for gender, possible values are: M, F, U.');
+		if(mb_strlen($id) > 35) throw new Exception('Id can\'t be longer then 35chars.');
+		if(mb_strlen($phoneNumber) > 50) throw new Exception('PhoneNumber can\'t be longer then 50chars.');
+		if(mb_strlen($mobilePhoneNumber) > 50) throw new Exception('MobilePhoneNumber can\'t be longer then 50chars.');
 
 		// init if needed
 		if($this->shopper === null) $this->shopper = new stdClass();
@@ -1080,11 +1065,3 @@ class DocdataPaymentsSimpleOrder
 		$this->totalGrossAmount->_ = (string) ((float) $value * 100);
 	}
 }
-
-/**
- * DocdataPayments Exception class
- *
- * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
- */
-class DocdataPaymentsException extends Exception
-{}
