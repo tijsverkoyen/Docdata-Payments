@@ -2,6 +2,7 @@
 namespace TijsVerkoyen\DocDataPayments;
 
 use TijsVerkoyen\DocDataPayments\Types\Address;
+use TijsVerkoyen\DocDataPayments\Types\Amount;
 use TijsVerkoyen\DocDataPayments\Types\Country;
 use TijsVerkoyen\DocDataPayments\Types\CreateError;
 use TijsVerkoyen\DocDataPayments\Types\CreateRequest;
@@ -63,6 +64,7 @@ class DocDataPayments
      */
     private $classMaps = array(
 	    'address' => 'TijsVerkoyen\DocDataPayments\Types\Address',
+	    'amount' => 'TijsVerkoyen\DocDataPayments\Types\Amount',
 	    'country' => 'TijsVerkoyen\DocDataPayments\Types\Country',
 	    'createError' => 'TijsVerkoyen\DocDataPayments\Types\CreateError',
 	    'destination' => 'TijsVerkoyen\DocDataPayments\Types\Destination',
