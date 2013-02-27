@@ -13,7 +13,7 @@ use TijsVerkoyen\DocDataPayments\Types\Merchant;
  */
 class DocDataPayments
 {
-    const DEBUG = false;
+    const DEBUG = true;
     const VERSION = '2.0.9';
 
 	/**
@@ -53,8 +53,14 @@ class DocDataPayments
      * @var array
      */
     private $classMaps = array(
+	    'address' => 'TijsVerkoyen\DocDataPayments\Types\Address',
+	    'country' => 'TijsVerkoyen\DocDataPayments\Types\Country',
 	    'createError' => 'TijsVerkoyen\DocDataPayments\Types\CreateError',
+	    'destination' => 'TijsVerkoyen\DocDataPayments\Types\Destination',
 	    'error' => 'TijsVerkoyen\DocDataPayments\Types\Error',
+	    'merchant' => 'TijsVerkoyen\DocDataPayments\Types\Merchant',
+	    'name' => 'TijsVerkoyen\DocDataPayments\Types\name',
+	    'paymentPreferences' => 'TijsVerkoyen\DocDataPayments\Types\PaymentPreferences',
     );
 
     /**
