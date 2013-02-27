@@ -1,6 +1,8 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments;
 
+use TijsVerkoyen\DocDataPayments\Types\Merchant;
+
 /**
  * Docdata Payments class
  *
@@ -11,8 +13,13 @@ namespace TijsVerkoyen\DocDataPayments;
  */
 class DocDataPayments
 {
-    const DEBUG = true;
+    const DEBUG = false;
     const VERSION = '2.0.9';
+
+	/**
+	 * @var Merchant
+	 */
+	private $merchant;
 
     /**
      * The soapclient
@@ -147,4 +154,17 @@ class DocDataPayments
     {
         $this->wsdl = $wsdl;
     }
+
+	/**
+	 * Set the credentials that will be used
+	 *
+	 * @param string $username
+	 * @param string $password
+	 */
+	public function setCredentials($username, $password)
+	{
+		$this->merchant = new Merchant();
+		$this->merchant->setName($username);
+		$this->merchant->setPassword($password);
+	}
 }
