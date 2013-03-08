@@ -358,4 +358,118 @@ class DocDataPayments
 
         return $response->statusSuccess;
     }
+
+    /**
+     * Get the payment url
+     *
+     * @param string           $clientLanguage
+     * @param string           $paymentClusterKey
+     * @param string[optional] $successUrl        Merchant’s web page where the shopper will be sent to after a
+     *                                                  successful transaction. Mandatory in back office.
+     * @param string[optional] $canceledUrl Merchant’s web page where the shopper will be sent to if they
+     *                                                  cancel their transaction. Mandatory in back office.
+     * @param string[optional] $pendingUrl Merchant’s web page where the shopper will be sent to if a
+     *                                                  payment is started successfully but not yet paid.
+     * @param string[optional] $errorUrl Merchant’s web page where the shopper will be sent to if an
+     *                                                  error occurs.
+     * @param string[optional] $defaultPaymentMethod ID of the default payment method.
+     * @param string[optional] $defaultAct           If a default payment method is declared to direct the shopper
+     *                                                  to that payment method in the payment menu. Can contain the
+     *                                                  values “yes” or “no”.
+     * @param  bool[optional] $production Production mode?
+     * @return string
+     */
+    public function getPaymentUrl(
+        $clientLanguage,
+        $paymentClusterKey,
+        $successUrl = null,
+        $canceledUrl = null,
+        $pendingUrl = null,
+        $errorUrl = null,
+        $defaultPaymentMethod = null,
+        $defaultAct = null,
+        $production = true
+    ) {
+        $parameters = array();
+        $parameters['command'] = 'show_payment_cluster';
+        $parameters['merchant_name'] = $this->merchant->getName();
+        $parameters['client_language'] = (string) $clientLanguage;
+        $parameters['payment_cluster_key'] = (string) $paymentClusterKey;
+
+        if ($successUrl !== null) {
+            $parameters['return_url_success'] = $successUrl;
+        }
+        if ($canceledUrl !== null) {
+            $parameters['return_url_canceled'] = $canceledUrl;
+        }
+        if ($pendingUrl !== null) {
+            $parameters['return_url_pending'] = $pendingUrl;
+        }
+        if ($errorUrl !== null) {
+            $parameters['return_url_error'] = $errorUrl;
+        }
+        if ($defaultPaymentMethod !== null) {
+            $parameters['default_pm'] = $defaultPaymentMethod;
+        }
+        if ($defaultAct !== null) {
+            $parameters['default_act'] = $defaultAct;
+        }
+
+        if ($production) {
+            $base = 'https://www.docdatapayments.com/ps/com.tripledeal.paymentservice.servlets.PaymentService';
+        } else {
+            $base = 'https://test.docdatapayments.com/ps/com.tripledeal.paymentservice.servlets.PaymentService';
+        }
+
+        // build the url
+        return $base . '?' . http_build_query($parameters);
+    }
+
+    /**
+     * Redirect to the payment url
+     *
+     * @param string           $clientLanguage
+     * @param string           $paymentClusterKey
+     * @param string[optional] $successUrl        Merchant’s web page where the shopper will be sent to after a
+     *                                                  successful transaction. Mandatory in back office.
+     * @param string[optional] $canceledUrl Merchant’s web page where the shopper will be sent to if they
+     *                                                  cancel their transaction. Mandatory in back office.
+     * @param string[optional] $pendingUrl Merchant’s web page where the shopper will be sent to if a
+     *                                                  payment is started successfully but not yet paid.
+     * @param string[optional] $errorUrl Merchant’s web page where the shopper will be sent to if an
+     *                                                  error occurs.
+     * @param string[optional] $defaultPaymentMethod ID of the default payment method.
+     * @param string[optional] $defaultAct           If a default payment method is declared to direct the shopper
+     *                                                  to that payment method in the payment menu. Can contain the
+     *                                                  values “yes” or “no”.
+     * @param bool[optional] $production Production mode?
+     */
+    public function redirectToPaymentUrl(
+        $clientLanguage,
+        $paymentClusterKey,
+        $successUrl = null,
+        $canceledUrl = null,
+        $pendingUrl = null,
+        $errorUrl = null,
+        $defaultPaymentMethod = null,
+        $defaultAct = null,
+        $production = true
+    ) {
+        // get the url
+        $url = $this->getPaymentUrl(
+            $clientLanguage,
+            $paymentClusterKey,
+            $successUrl,
+            $canceledUrl,
+            $pendingUrl,
+            $errorUrl,
+            $defaultPaymentMethod,
+            $defaultAct,
+            $production
+        );
+
+        // redirect
+        header('location: ' . $url);
+        exit();
+    }
 }
