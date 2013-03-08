@@ -10,6 +10,7 @@ class PaymentReference extends BaseObject
 {
     /**
      * A linkID token, which is a UUID type 4 (see RFC-4122 and ITU-T Rec. X.667).
+     *
      * @var string
      */
     protected $linkId;

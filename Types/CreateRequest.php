@@ -11,7 +11,7 @@ class CreateRequest extends BaseObject
     /**
      * Merchant credentials.
      *
-     * @var Merchant
+     * @var \TijsVerkoyen\DocDataPayments\Types\Merchant
      */
     protected $merchant;
 
@@ -25,35 +25,35 @@ class CreateRequest extends BaseObject
     /**
      * Preferences to use for this payment.
      *
-     * @var PaymentPreferences
+     * @var \TijsVerkoyen\DocDataPayments\Types\PaymentPreferences
      */
     protected $paymentPreferences;
 
     /**
      * Preferences to be used for the webmenu.
      *
-     * @var MenuPreferences
+     * @var \TijsVerkoyen\DocDataPayments\Types\MenuPreferences
      */
     protected $menuPreferences;
 
     /**
      * Information concerning the shopper who placed
      *
-     * @var Shopper
+     * @var \TijsVerkoyen\DocDataPayments\Types\Shopper
      */
     protected $shopper;
 
     /**
      * Total order gross amount.
      *
-     * @var Amount
+     * @var \TijsVerkoyen\DocDataPayments\Types\Amount
      */
     protected $totalGrossAmount;
 
     /**
      * Name and address to use for billing.
      *
-     * @var Destination
+     * @var \TijsVerkoyen\DocDataPayments\Types\Destination
      */
     protected $billTo;
 
@@ -88,12 +88,12 @@ class CreateRequest extends BaseObject
      * starting point for upcoming repeated payments. Using "start" with the
      * request instead is highly recommended.
      *
-     * @var PaymentRequest
+     * @var \TijsVerkoyen\DocDataPayments\Types\PaymentRequest
      */
     protected $paymentRequest;
 
     /**
-     * @var Invoice
+     * @var \TijsVerkoyen\DocDataPayments\Types\Invoice
      */
     protected $invoice;
 

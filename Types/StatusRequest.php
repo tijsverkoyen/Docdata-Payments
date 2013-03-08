@@ -11,7 +11,7 @@ class StatusRequest extends BaseObject
     /**
      * Merchant credentials.
      *
-     * @var Merchant
+     * @var \TijsVerkoyen\DocDataPayments\Types\Merchant
      */
     protected $merchant;
 

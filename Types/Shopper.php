@@ -10,42 +10,49 @@ class Shopper extends BaseObject
 {
     /**
      * Shopper's full name.
-     * @var Name
+     *
+     * @var \TijsVerkoyen\DocDataPayments\Types\Name
      */
     protected $name;
 
     /**
      * Shopper's e-mail address.
+     *
      * @var string
      */
     protected $email;
 
     /**
      * Shopper's preferred language.
-     * @var Language
+     *
+     * @var \TijsVerkoyen\DocDataPayments\Types\Language
      */
     protected $language;
 
     /**
      * Shopper's gender.
+     *
      * @var string
      */
     protected $gender = 'U';
 
     /**
      * Shopper's date of birth.
+     *
      * @var string
      */
     protected $dateOfBirth;
 
     /**
      * Shopper's phone number.
+     *
      * @var string
      */
     protected $phoneNumber;
 
     /**
      * Shopper's mobile phone number.
+     *
      * @var string
      */
     protected $mobilePhoneNumber;

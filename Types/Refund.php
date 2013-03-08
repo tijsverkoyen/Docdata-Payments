@@ -21,7 +21,7 @@ class Refund extends BaseObject
     protected $status;
 
     /**
-     * @var Amount
+     * @var \TijsVerkoyen\DocDataPayments\Types\Amount
      */
     protected $amount;
 

@@ -9,7 +9,7 @@ namespace TijsVerkoyen\DocDataPayments\Types;
 class StatusError extends BaseObject
 {
     /**
-     * @var Error
+     * @var \TijsVerkoyen\DocDataPayments\Types\Error
      */
     protected $error;
 

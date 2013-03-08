@@ -11,6 +11,7 @@ class PaymentPreferences extends BaseObject
     /**
      * The profile that is used to select the payment methods that can be used
      * to pay this order.
+     *
      * @var string
      */
     protected $profile;

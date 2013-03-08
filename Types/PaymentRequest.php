@@ -9,7 +9,7 @@ namespace TijsVerkoyen\DocDataPayments\Types;
 class PaymentRequest extends BaseObject
 {
     /**
-     * @var PaymentReference
+     * @var \TijsVerkoyen\DocDataPayments\Types\PaymentReference
      */
     protected $paymentReference;
 

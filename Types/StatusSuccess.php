@@ -9,12 +9,12 @@ namespace TijsVerkoyen\DocDataPayments\Types;
 class StatusSuccess extends BaseObject
 {
     /**
-     * @var Report
+     * @var \TijsVerkoyen\DocDataPayments\Types\Report
      */
     protected $report;
 
     /**
-     * @var Success
+     * @var \TijsVerkoyen\DocDataPayments\Types\Success
      */
     protected $success;
 

@@ -21,7 +21,7 @@ class Payment extends BaseObject
     protected $paymentMethod;
 
     /**
-     * @var Authorization
+     * @var \TijsVerkoyen\DocDataPayments\Types\Authorization
      */
     protected $authorization;
 

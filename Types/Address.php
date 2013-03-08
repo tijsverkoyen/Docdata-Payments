@@ -29,6 +29,7 @@ class Address extends BaseObject
 
     /**
      * The addition to the house number.
+     *
      * @var string
      */
     protected $houseNumberAddition;
@@ -44,7 +45,7 @@ class Address extends BaseObject
     protected $city;
 
     /**
-     * @var Country
+     * @var \TijsVerkoyen\DocDataPayments\Types\Country
      */
     protected $country;
 

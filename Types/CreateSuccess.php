@@ -10,17 +10,18 @@ class CreateSuccess extends BaseObject
 {
     /**
      * Generated key identifying the merchant and payment order.
+     *
      * @var string
      */
     protected $key;
 
     /**
-     * @var Success
+     * @var \TijsVerkoyen\DocDataPayments\Types\Success
      */
     protected $success;
 
     /**
-     * @var PaymentResponse
+     * @var \TijsVerkoyen\DocDataPayments\Types\PaymentResponse
      */
     protected $paymentResponse;
 

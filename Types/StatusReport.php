@@ -9,12 +9,12 @@ namespace TijsVerkoyen\DocDataPayments\Types;
 class StatusReport extends BaseObject
 {
     /**
-     * @var ApproximateTotals
+     * @var \TijsVerkoyen\DocDataPayments\Types\ApproximateTotals
      */
     protected $approximateTotals;
 
     /**
-     * @var Payment
+     * @var \TijsVerkoyen\DocDataPayments\Types\Payment
      */
     protected $payment;
 

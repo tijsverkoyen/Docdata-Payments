@@ -10,30 +10,35 @@ class Name extends BaseObject
 {
     /**
      * For example: Mr., Mrs., Ms., Dr. This field is commonly omitted.
+     *
      * @var string
      */
     protected $prefix;
 
     /**
      * The initials.
+     *
      * @var string
      */
     protected $initials;
 
     /**
      * The first given name.
+     *
      * @var string
      */
     protected $first;
 
     /**
      * Any subsequent given name or names. May also be used as middle initial.
+     *
      * @var string
      */
     protected $middle;
 
     /**
      * The family or inherited name(s).
+     *
      * @var string
      */
     protected $last;
@@ -41,6 +46,7 @@ class Name extends BaseObject
     /**
      * For example: Ph.D., Jr. (Junior), 3rd, Esq. (Exquire). This field is
      * commonly omitted.
+     *
      * @var string
      */
     protected $suffix;

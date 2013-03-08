@@ -10,24 +10,28 @@ class Item extends BaseObject
 {
     /**
      * The human-readable name of this item.
+     *
      * @var string
      */
     protected $name;
 
     /**
      * A code or article number identifying this item.
+     *
      * @var string
      */
     protected $code;
 
     /**
      * Quantity of this item that's being ordered.
+     *
      * @var int
      */
     protected $quantity;
 
     /**
      * The description of the item.
+     *
      * @var string
      */
     protected $description;
@@ -36,43 +40,47 @@ class Item extends BaseObject
      * URL pointing to the location of the order item's	image. The image itself
      * can be subject to certain limitations on file size and image dimensions,
      * defined by docdata.
+     *
      * @var string
      */
     protected $image;
 
     /**
      * The net amount for a single piece of this item.
-     * @var Amount
+     *
+     * @var \TijsVerkoyen\DocDataPayments\Types\Amount
      */
     protected $netAmount;
 
     /**
      * The gross amount for a single piece of this item.
-     * @var Amount
+     *
+     * @var \TijsVerkoyen\DocDataPayments\Types\Amount
      */
     protected $grossAmount;
 
     /**
      * The VAT amount for a single piece of this item.
-     * @var Vat
+     *
+     * @var \TijsVerkoyen\DocDataPayments\Types\Vat
      */
     protected $vat;
 
     /**
      * The total net amount for this item.
-     * @var Amount
+     * @var \TijsVerkoyen\DocDataPayments\Types\Amount
      */
     protected $totalNetAmount;
 
     /**
      * The total gross amount for this item.
-     * @var Amount
+     * @var \TijsVerkoyen\DocDataPayments\Types\Amount
      */
     protected $totalGrossAmount;
 
     /**
      * The total VAT amount for this item.
-     * @var Vat
+     * @var \TijsVerkoyen\DocDataPayments\Types\Vat
      */
     protected $totalVat;
 

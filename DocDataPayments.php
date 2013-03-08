@@ -25,14 +25,14 @@ class DocDataPayments
     const VERSION = '2.0.0';
 
     /**
-     * @var Merchant
+     * @var \TijsVerkoyen\DocDataPayments\Types\Merchant
      */
     private $merchant;
 
     /**
      * The soapclient
      *
-     * @var BaseSoapClient
+     * @var \SoapClient
      */
     private $soapclient;
 
@@ -108,7 +108,7 @@ class DocDataPayments
     /**
      * Returns the SoapClient instance
      *
-     * @return BaseSoapClient
+     * @return \SoapClient
      */
     protected function getSoapClient()
     {
@@ -218,18 +218,18 @@ class DocDataPayments
      * order items, the web menu can make use of this information by displaying
      * a shopping cart.
      *
-     * @param  string                       $merchantOrderReference
-     * @param  Shopper                      $shopper
-     * @param  Amount                       $totalGrossAmount
-     * @param  Destination                  $billTo
-     * @param  string[optional]             $description
-     * @param  string[optional]             $receiptText
-     * @param  PaymentPreferences[optional] $paymentPreferences
-     * @param  MenuPreferences[optional]    $menuPreferences
-     * @param  PaymentRequest[optional]     $paymentRequest
-     * @param  Invoice[optional]            $invoice
-     * @param  bool[optional]               $includeCosts
-     * @return CreateSuccess
+     * @param  string                                                          $merchantOrderReference
+     * @param  TijsVerkoyen\DocDataPayments\Types\Shopper                      $shopper
+     * @param  TijsVerkoyen\DocDataPayments\Types\Amount                       $totalGrossAmount
+     * @param  TijsVerkoyen\DocDataPayments\Types\Destination                  $billTo
+     * @param  string[optional]                                                $description
+     * @param  string[optional]                                                $receiptText
+     * @param  TijsVerkoyen\DocDataPayments\Types\PaymentPreferences[optional] $paymentPreferences
+     * @param  TijsVerkoyen\DocDataPayments\Types\MenuPreferences[optional]    $menuPreferences
+     * @param  TijsVerkoyen\DocDataPayments\Types\PaymentRequest[optional]     $paymentRequest
+     * @param  TijsVerkoyen\DocDataPayments\Types\Invoice[optional]            $invoice
+     * @param  bool[optional]                                                  $includeCosts
+     * @return TijsVerkoyen\DocDataPayments\Types\CreateSuccess
      */
     public function create(
         $merchantOrderReference,

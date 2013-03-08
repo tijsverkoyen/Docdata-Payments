@@ -9,7 +9,7 @@ namespace TijsVerkoyen\DocDataPayments\Types;
 class Vat extends BaseObject
 {
     /**
-     * @var Amount
+     * @var \TijsVerkoyen\DocDataPayments\Types\Amount
      */
     protected $amount;
 

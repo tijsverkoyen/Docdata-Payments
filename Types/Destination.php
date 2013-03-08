@@ -11,14 +11,14 @@ class Destination extends BaseObject
     /**
      * Name of the destination.
      *
-     * @var Name
+     * @var \TijsVerkoyen\DocDataPayments\Types\Name
      */
     protected $name;
 
     /**
      * Address of the destination.
      *
-     * @var Address
+     * @var \TijsVerkoyen\DocDataPayments\Types\Address
      */
     protected $address;
 

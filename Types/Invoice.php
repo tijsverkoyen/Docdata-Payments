@@ -10,30 +10,35 @@ class Invoice extends BaseObject
 {
     /**
      * Total net amount for this order.
-     * @var Amount
+     *
+     * @var \TijsVerkoyen\DocDataPayments\Types\Amount
      */
     protected $totalNetAmount;
 
     /**
      * Total VAT amount for this order.
-     * @var Vat
+     *
+     * @var \TijsVerkoyen\DocDataPayments\Types\Vat
      */
     protected $totalVatAmount;
 
     /**
      * Information concerning the ordered items.
+     *
      * @var array
      */
     protected $item = array();
 
     /**
      * Name and address to use for shipping.
-     * @var Destination
+     *
+     * @var \TijsVerkoyen\DocDataPayments\Types\Destination
      */
     protected $shipTo;
 
     /**
      * Additional description concerning the payment order.
+     *
      * @var string
      */
     protected $additionalDescription;

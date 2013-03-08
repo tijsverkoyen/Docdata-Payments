@@ -16,7 +16,7 @@ class Authorization extends BaseObject
     protected $status;
 
     /**
-     * @var Amount
+     * @var \TijsVerkoyen\DocDataPayments\Types\Amount
      */
     protected $amount;
 
@@ -26,12 +26,12 @@ class Authorization extends BaseObject
     protected $confidenceLevel;
 
     /**
-     * @var Capture
+     * @var \TijsVerkoyen\DocDataPayments\Types\Capture
      */
     protected $capture;
 
     /**
-     * @var Refund
+     * @var \TijsVerkoyen\DocDataPayments\Types\Refund
      */
     protected $refund;
 

@@ -10,6 +10,7 @@ class MenuPreferences extends BaseObject
 {
     /**
      * The id of the CSS file that should be used in the payment menu.
+     *
      * @var mixed
      */
     protected $css;
@@ -17,6 +18,7 @@ class MenuPreferences extends BaseObject
     /**
      * Determines if the cancel button is shown (true) or not shown (false),
      * only applicable to the old payment menu.
+     *
      * @var bool
      */
     protected $showCancelButton;
@@ -24,6 +26,7 @@ class MenuPreferences extends BaseObject
     /**
      * Determines if the user can choose the country to pay from (false) or
      * not (true), only applicable to the old payment menu. Default is false.
+     *
      * @var boolean
      */
     protected $forceCountry;
