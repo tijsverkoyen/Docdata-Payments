@@ -277,8 +277,6 @@ class DocDataPayments
             $createRequest->setIncludeCosts($includeCosts);
         }
 
-        var_dump($createRequest->toArray());
-
         // make the call
         $response = $this->getSoapClient()->create($createRequest->toArray());
 

@@ -41,4 +41,16 @@ class Quantity extends BaseObject
     {
         $this->_ = $number;
     }
+
+    /**
+     * Convert the object into an array
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            '_' => $this->_,
+            'unitOfMeasure' => $this->getUnitOfMeasure()
+        );
+    }
 }

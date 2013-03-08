@@ -117,4 +117,18 @@ class Invoice extends BaseObject
     {
         return $this->totalVatAmount;
     }
+
+    /**
+     * Convert object into an array;
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $return = parent::toArray();
+
+        var_dump($return['totalVatAmount']);
+
+        return $return;
+    }
 }

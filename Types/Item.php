@@ -301,4 +301,19 @@ class Item extends BaseObject
         $this->setGrossAmount($grossAmount);
         $this->setVat($vat);
     }
+
+    /**
+     * Convert object into an array;
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $return = parent::toArray();
+        $return['totalNetAmount'] = $return['quantity']['_'] * $return['netAmount']['_'];
+        $return['totalGrossAmount'] = $return['quantity']['_'] * $return['grossAmount']['_'];
+        $return['totalVat'] = $return['quantity']['_'] * $return['vat']['amount']['_'];
+
+        return $return;
+    }
 }

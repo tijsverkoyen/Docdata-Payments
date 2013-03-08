@@ -66,8 +66,8 @@ try {
 //        $billTo,
 //        $paymentPreferences
 //    );
-//
-//    // extended start of payment, untested
+
+    // extended start of payment, untested
 //    $name = new Name();
 //    $name->setFirst('Tijs');
 //    $name->setLast('Verkoyen');
@@ -104,29 +104,27 @@ try {
 //
 //    $paymentRequest = null;
 //    // $paymentReference = new PaymentReference();
-//	// $paymentReference->setLinkId(1);
-//	// $paymentRequest = new PaymentRequest();
-//	// $paymentRequest->setPaymentReference($paymentReference);
+//    // $paymentReference->setLinkId(1);
+//    // $paymentRequest = new PaymentRequest();
+//    // $paymentRequest->setPaymentReference($paymentReference);
 //
 //    $vat = new Vat();
 //    $vat->setAmount(new Amount(21));
 //    $vat->setRate(21);
 //    $item = new Item(
-//        1,
-//        'CODE',
-//        'Name',
-//        new Quantity(10),
-//        'Description',
-//        new Amount(100),
-//        new Amount(100),
+//        12345,
+//        '12345',
+//        'Test product',
+//        new Quantity(1),
+//        'Dit is een test product',
+//        new Amount(1000),
+//        new Amount(1000),
 //        $vat
 //    );
 //    $vat = new Vat();
-//    $vat->setAmount(new Amount(21));
-//    $vat->setRate(21);
-//    $item->setTotalVat($vat);
-//    $item->setTotalGrossAmount(new Amount(1000));
-//    $item->setTotalNetAmount(new Amount(1000));
+//    $vat->setAmount(new Amount(190));
+//    $vat->setRate(19);
+//
 //    $items = array($item);
 //
 //    $address = new Address();
@@ -149,19 +147,19 @@ try {
 //    $vat->setRate(21);
 //
 //    $invoice = new Invoice();
-//    $invoice->setTotalNetAmount(new Amount(1000));
-//    $invoice->setTotalVatAmount($vat);
 //    $invoice->setItem($items);
 //    $invoice->setShipTo($shipTo);
+//    $invoice->setTotalNetAmount(new Amount(1000));
+//    $invoice->setTotalVatAmount($vat);
 //
 //    $response = $docDataPayments->create(
 //        time(),
 //        $shopper,
 //        $totalGrossAmount,
 //        $billTo,
+//        $paymentPreferences,
 //        'Description',
 //        'ReceiptText',
-//        $paymentPreferences,
 //        $menuPreferences,
 //        $paymentRequest,
 //        $invoice,

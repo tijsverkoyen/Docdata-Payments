@@ -42,6 +42,10 @@ class Amount extends BaseObject
         return $this->currency;
     }
 
+    /**
+     * Convert the object into an array
+     * @return array
+     */
     public function toArray()
     {
         return array(
