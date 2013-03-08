@@ -1,28 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments;
 
-use TijsVerkoyen\DocDataPayments\Types\Address;
 use TijsVerkoyen\DocDataPayments\Types\Amount;
-use TijsVerkoyen\DocDataPayments\Types\Country;
-use TijsVerkoyen\DocDataPayments\Types\CreateError;
 use TijsVerkoyen\DocDataPayments\Types\CreateRequest;
-use TijsVerkoyen\DocDataPayments\Types\CreateSuccess;
 use TijsVerkoyen\DocDataPayments\Types\Destination;
-use TijsVerkoyen\DocDataPayments\Types\Error;
 use TijsVerkoyen\DocDataPayments\Types\Invoice;
-use TijsVerkoyen\DocDataPayments\Types\Item;
-use TijsVerkoyen\DocDataPayments\Types\Language;
 use TijsVerkoyen\DocDataPayments\Types\MenuPreferences;
 use TijsVerkoyen\DocDataPayments\Types\Merchant;
-use TijsVerkoyen\DocDataPayments\Types\Name;
 use TijsVerkoyen\DocDataPayments\Types\PaymentPreferences;
-use TijsVerkoyen\DocDataPayments\Types\PaymentReference;
-use TijsVerkoyen\DocDataPayments\Types\PaymentRequest;
-use TijsVerkoyen\DocDataPayments\Types\PaymentResponse;
-use TijsVerkoyen\DocDataPayments\Types\Quantity;
 use TijsVerkoyen\DocDataPayments\Types\Shopper;
-use TijsVerkoyen\DocDataPayments\Types\Success;
-use TijsVerkoyen\DocDataPayments\Types\Vat;
 
 /**
  * Docdata Payments class
