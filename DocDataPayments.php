@@ -2,6 +2,7 @@
 namespace TijsVerkoyen\DocDataPayments;
 
 use TijsVerkoyen\DocDataPayments\Types\Amount;
+use TijsVerkoyen\DocDataPayments\Types\CancelRequest;
 use TijsVerkoyen\DocDataPayments\Types\CreateRequest;
 use TijsVerkoyen\DocDataPayments\Types\Destination;
 use TijsVerkoyen\DocDataPayments\Types\Invoice;
@@ -68,6 +69,9 @@ class DocDataPayments
         'amount' => 'TijsVerkoyen\DocDataPayments\Types\Amount',
         'approximateTotals' => 'TijsVerkoyen\DocDataPayments\Types\ApproximateTotals',
         'authorization' => 'TijsVerkoyen\DocDataPayments\Types\Authorization',
+        'cancelError' => 'TijsVerkoyen\DocDataPayments\Types\CancelError',
+        'cancelRequest' => 'TijsVerkoyen\DocDataPayments\Types\CancelRequest',
+        'cancelSuccess' => 'TijsVerkoyen\DocDataPayments\Types\CancelSuccess',
         'capture' => 'TijsVerkoyen\DocDataPayments\Types\Capture',
         'country' => 'TijsVerkoyen\DocDataPayments\Types\Country',
         'createError' => 'TijsVerkoyen\DocDataPayments\Types\CreateError',
@@ -325,6 +329,38 @@ class DocDataPayments
         }
 
         return $response->statusSuccess;
+    }
+
+    /**
+     * The cancel command is used for canceling a previously created payment,
+     * and can only be used for payments with status NEW, STARTED and
+     * AUTHORIZED.
+     *
+     * @param  string                                           $paymentOrderKey
+     * @return TijsVerkoyen\DocDataPayments\Types\CancelSuccess
+     */
+    public function cancel($paymentOrderKey)
+    {
+        $cancelRequest = new CancelRequest();
+        $cancelRequest->setMerchant($this->merchant);
+        $cancelRequest->setPaymentOrderKey($paymentOrderKey);
+
+        // make the call
+        $response = $this->getSoapClient()->cancel($cancelRequest->toArray());
+
+        // validate response
+        if (isset($response->cancelError)) {
+            if (self::DEBUG) {
+                var_dump($this->soapClient->__getLastRequest());
+                var_dump($response->cancelError);
+            }
+
+            throw new Exception(
+                $response->cancelError->getError()->getExplanation()
+            );
+        }
+
+        return $response->cancelSuccess;
     }
 
     /**

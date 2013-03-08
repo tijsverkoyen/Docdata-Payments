@@ -107,6 +107,57 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests DocDataPayments->cancel()
+     */
+    public function testCancel()
+    {
+        $name = new \TijsVerkoyen\DocDataPayments\Types\Name();
+        $name->setFirst('Tijs');
+        $name->setLast('Verkoyen');
+
+        $shopper = new \TijsVerkoyen\DocDataPayments\Types\Shopper();
+        $shopper->setId(1);
+        $shopper->setGender('M');
+        $shopper->setName($name);
+        $shopper->setEmail('php-docdatapayments@verkoyen.eu');
+        $shopper->setLanguage(new \TijsVerkoyen\DocDataPayments\Types\Language('nl'));
+
+        $totalGrossAmount = new \TijsVerkoyen\DocDataPayments\Types\Amount(2000);
+
+        $address = new \TijsVerkoyen\DocDataPayments\Types\Address();
+        $address->setStreet('Kerkstraat');
+        $address->setHouseNumber(108);
+        $address->setPostalCode('9050');
+        $address->setCity('Gentbrugge');
+        $address->setCountry(new \TijsVerkoyen\DocDataPayments\Types\Country('BE'));
+
+        $name = new \TijsVerkoyen\DocDataPayments\Types\Name();
+        $name->setFirst('Tijs');
+        $name->setLast('Verkoyen');
+
+        $billTo = new \TijsVerkoyen\DocDataPayments\Types\Destination();
+        $billTo->setName($name);
+        $billTo->setAddress($address);
+
+        $paymentPreferences = new \TijsVerkoyen\DocDataPayments\Types\PaymentPreferences();
+        $paymentPreferences->setProfile('standard');
+        $paymentPreferences->setNumberOfDaysToPay(4);
+
+        $var = $this->docDataPayments->create(
+            time(),
+            $shopper,
+            $totalGrossAmount,
+            $billTo,
+            $paymentPreferences
+        );
+
+        $response = $this->docDataPayments->cancel($var->getKey());
+
+        $this->assertInstanceOf('\TijsVerkoyen\DocDataPayments\Types\CancelSuccess', $response);
+        $this->assertEquals('SUCCESS', $response->getSuccess()->getCode());
+    }
+
+    /**
      * Tests DocDataPayments->status()
      */
     public function testStatus()
