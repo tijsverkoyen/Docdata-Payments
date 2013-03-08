@@ -8,7 +8,10 @@ use TijsVerkoyen\DocDataPayments\Types\Invoice;
 use TijsVerkoyen\DocDataPayments\Types\MenuPreferences;
 use TijsVerkoyen\DocDataPayments\Types\Merchant;
 use TijsVerkoyen\DocDataPayments\Types\PaymentPreferences;
+use TijsVerkoyen\DocDataPayments\Types\PaymentRequest;
+use TijsVerkoyen\DocDataPayments\Types\PaymentRequestInput;
 use TijsVerkoyen\DocDataPayments\Types\Shopper;
+use TijsVerkoyen\DocDataPayments\Types\StartRequest;
 use TijsVerkoyen\DocDataPayments\Types\StatusRequest;
 
 /**
@@ -290,15 +293,49 @@ class DocDataPayments
         return $response->createSuccess;
     }
 
-	/**
-	 * The status call can be used to get a report on the current status of a Payment Order, its payments and its
-	 * captures or refunds. It can be used to determine whether an order is considered paid, to retrieve a payment ID,
-	 * to get information on the statuses of captures/refunds.
-	 *
-	 * @param string $paymentOrderKey
-	 * @return TijsVerkoyen\DocDataPayments\Types\StatusSuccess
-	 */
-	public function status($paymentOrderKey)
+    public function start(
+        $paymentOrderKey,
+        PaymentRequestInput $payment = null,
+        PaymentRequest $recuringPaymentRequest = null
+    ) {
+        $startRequest = new StartRequest();
+        $startRequest->setMerchant($this->merchant);
+        $startRequest->setPaymentOrderKey($paymentOrderKey);
+
+        if ($payment != null) {
+            $startRequest->setPayment($payment);
+        }
+        if ($recuringPaymentRequest != null) {
+            $startRequest->setRecurringPaymentRequest($recuringPaymentRequest);
+        }
+
+        // make the call
+        $response = $this->getSoapClient()->start($startRequest->toArray());
+
+        // validate response
+        if (isset($response->startError)) {
+            if (self::DEBUG) {
+                var_dump($this->soapClient->__getLastRequest());
+                var_dump($response->startError);
+            }
+
+            throw new Exception(
+                $response->startError->getError()->getExplanation()
+            );
+        }
+
+        return $response->statusSuccess;
+    }
+
+    /**
+     * The status call can be used to get a report on the current status of a Payment Order, its payments and its
+     * captures or refunds. It can be used to determine whether an order is considered paid, to retrieve a payment ID,
+     * to get information on the statuses of captures/refunds.
+     *
+     * @param  string                                           $paymentOrderKey
+     * @return TijsVerkoyen\DocDataPayments\Types\StatusSuccess
+     */
+    public function status($paymentOrderKey)
     {
         $statusRequest = new StatusRequest();
         $statusRequest->setMerchant($this->merchant);

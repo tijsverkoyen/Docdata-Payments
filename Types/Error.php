@@ -13,10 +13,10 @@ class Error extends BaseObject
      */
     protected $code;
 
-	/**
-	 * @var array
-	 */
-	protected $explanations = array(
+    /**
+     * @var array
+     */
+    protected $explanations = array(
         'UNKNOWN_ERROR' => 'The reason of error is unknown.',
         'REQUEST_DATA_MISSING' => 'Request data is missing.',
         'REQUEST_DATA_INCORRECT' => 'Request data is incorrect.',
