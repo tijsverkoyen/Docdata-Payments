@@ -9,6 +9,7 @@ use TijsVerkoyen\DocDataPayments\Types\MenuPreferences;
 use TijsVerkoyen\DocDataPayments\Types\Merchant;
 use TijsVerkoyen\DocDataPayments\Types\PaymentPreferences;
 use TijsVerkoyen\DocDataPayments\Types\Shopper;
+use TijsVerkoyen\DocDataPayments\Types\StatusRequest;
 
 /**
  * Docdata Payments class
@@ -62,6 +63,9 @@ class DocDataPayments
     private $classMaps = array(
         'address' => 'TijsVerkoyen\DocDataPayments\Types\Address',
         'amount' => 'TijsVerkoyen\DocDataPayments\Types\Amount',
+        'approximateTotals' => 'TijsVerkoyen\DocDataPayments\Types\ApproximateTotals',
+        'authorization' => 'TijsVerkoyen\DocDataPayments\Types\Authorization',
+        'capture' => 'TijsVerkoyen\DocDataPayments\Types\Capture',
         'country' => 'TijsVerkoyen\DocDataPayments\Types\Country',
         'createError' => 'TijsVerkoyen\DocDataPayments\Types\CreateError',
         'createRequest' => 'TijsVerkoyen\DocDataPayments\Types\CreateRequest',
@@ -76,10 +80,15 @@ class DocDataPayments
         'name' => 'TijsVerkoyen\DocDataPayments\Types\name',
         'paymentPreferences' => 'TijsVerkoyen\DocDataPayments\Types\PaymentPreferences',
         'paymentReference' => 'TijsVerkoyen\DocDataPayments\Types\PaymentReference',
-        'paymentResponse' => 'TijsVerkoyen\DocDataPayments\Types\PaymentResponse',
         'paymentRequest' => 'TijsVerkoyen\DocDataPayments\Types\PaymentRequest',
+        'paymentResponse' => 'TijsVerkoyen\DocDataPayments\Types\PaymentResponse',
         'quantity' => 'TijsVerkoyen\DocDataPayments\Types\Quantity',
+        'refund' => 'TijsVerkoyen\DocDataPayments\Types\Refund',
         'shopper' => 'TijsVerkoyen\DocDataPayments\Types\Shopper',
+        'statusError' => 'TijsVerkoyen\DocDataPayments\Types\StatusError',
+        'statusReport' => 'TijsVerkoyen\DocDataPayments\Types\StatusReport',
+        'statusRequest' => 'TijsVerkoyen\DocDataPayments\Types\StatusRequest',
+        'statusSuccess' => 'TijsVerkoyen\DocDataPayments\Types\StatusSuccess',
         'success' => 'TijsVerkoyen\DocDataPayments\Types\Success',
         'vat' => 'TijsVerkoyen\DocDataPayments\Types\Vat',
     );
@@ -110,7 +119,7 @@ class DocDataPayments
                 'exceptions' => false,
                 'connection_timeout' => $this->getTimeout(),
                 'user_agent' => $this->getUserAgent(),
-                'cache_wsdl' => (self::DEBUG) ? false : WSDL_CACHE_BOTH,
+                'cache_wsdl' => (self::DEBUG) ? WSDL_CACHE_NONE : WSDL_CACHE_BOTH,
                 'classmap' => $this->classMaps,
             );
 
@@ -279,5 +288,37 @@ class DocDataPayments
         }
 
         return $response->createSuccess;
+    }
+
+	/**
+	 * The status call can be used to get a report on the current status of a Payment Order, its payments and its
+	 * captures or refunds. It can be used to determine whether an order is considered paid, to retrieve a payment ID,
+	 * to get information on the statuses of captures/refunds.
+	 *
+	 * @param string $paymentOrderKey
+	 * @return TijsVerkoyen\DocDataPayments\Types\StatusSuccess
+	 */
+	public function status($paymentOrderKey)
+    {
+        $statusRequest = new StatusRequest();
+        $statusRequest->setMerchant($this->merchant);
+        $statusRequest->setPaymentOrderKey($paymentOrderKey);
+
+        // make the call
+        $response = $this->getSoapClient()->status($statusRequest->toArray());
+
+        // validate response
+        if (isset($response->statusError)) {
+            if (self::DEBUG) {
+                var_dump($this->soapClient->__getLastRequest());
+                var_dump($response->statusError);
+            }
+
+            throw new Exception(
+                $response->statusError->getError()->getExplanation()
+            );
+        }
+
+        return $response->statusSuccess;
     }
 }
