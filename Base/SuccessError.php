@@ -42,7 +42,9 @@ class SuccessError extends Object
     public function getExplanation()
     {
         $message = $this->explanations[$this->code];
-        if(isset($this->_)) $message .= ' ' . $this->_;
+        if (isset($this->_)) {
+            $message .= ' ' . $this->_;
+        }
 
         return $message;
     }
