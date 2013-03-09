@@ -1,14 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
-use TijsVerkoyen\DocDataPayments\Base\Object;
+use TijsVerkoyen\DocDataPayments\Base\Success;
 
 /**
  * DocDataPayments CreateRequest class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class CreateSuccess extends Object
+class CreateSuccess extends Success
 {
     /**
      * Generated key identifying the merchant and payment order.
@@ -16,11 +16,6 @@ class CreateSuccess extends Object
      * @var string
      */
     protected $key;
-
-    /**
-     * @var \TijsVerkoyen\DocDataPayments\Types\Success
-     */
-    protected $success;
 
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\PaymentResponse
@@ -57,21 +52,5 @@ class CreateSuccess extends Object
     public function getPaymentResponse()
     {
         return $this->paymentResponse;
-    }
-
-    /**
-     * @param \TijsVerkoyen\DocDataPayments\Types\Success $success
-     */
-    public function setSuccess(Success $success)
-    {
-        $this->success = $success;
-    }
-
-    /**
-     * @return \TijsVerkoyen\DocDataPayments\Types\Success
-     */
-    public function getSuccess()
-    {
-        return $this->success;
     }
 }

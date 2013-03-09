@@ -1,8 +1,6 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Base;
 
-use TijsVerkoyen\DocDataPayments\DocDataPayments;
-
 /**
  * DocDataPayments Object class
  *

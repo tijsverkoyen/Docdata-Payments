@@ -1,24 +1,19 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
-use TijsVerkoyen\DocDataPayments\Base\Object;
+use TijsVerkoyen\DocDataPayments\Base\Success;
 
 /**
  * DocDataPayments StatusRequest class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class StatusSuccess extends Object
+class StatusSuccess extends Success
 {
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\Report
      */
     protected $report;
-
-    /**
-     * @var \TijsVerkoyen\DocDataPayments\Types\Success
-     */
-    protected $success;
 
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Report $report
@@ -34,21 +29,5 @@ class StatusSuccess extends Object
     public function getReport()
     {
         return $this->report;
-    }
-
-    /**
-     * @param \TijsVerkoyen\DocDataPayments\Types\Success $success
-     */
-    public function setSuccess(Success $success)
-    {
-        $this->success = $success;
-    }
-
-    /**
-     * @return \TijsVerkoyen\DocDataPayments\Types\Success
-     */
-    public function getSuccess()
-    {
-        return $this->success;
     }
 }

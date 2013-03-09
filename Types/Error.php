@@ -1,20 +1,15 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
-use TijsVerkoyen\DocDataPayments\Base\Object;
+use TijsVerkoyen\DocDataPayments\Base\SuccessError;
 
 /**
  * DocDataPayments Error class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Error extends Object
+class Error extends SuccessError
 {
-    /**
-     * @var string
-     */
-    protected $code;
-
     /**
      * @var array
      */
@@ -25,30 +20,4 @@ class Error extends Object
         'SECURITY_ERROR' => 'Error related to security violations such as login failure or not allowed IP.',
         'INTERNAL_ERROR' => 'Payment system error.',
     );
-
-    /**
-     * @param string $code
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * Get a decent explanation
-     *
-     * @return string
-     */
-    public function getExplanation()
-    {
-        return $this->explanations[$this->code];
-    }
 }
