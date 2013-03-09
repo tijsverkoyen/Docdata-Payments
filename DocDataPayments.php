@@ -28,7 +28,7 @@ use TijsVerkoyen\DocDataPayments\Types\StatusRequest;
 class DocDataPayments
 {
     const DEBUG = false;
-    const VERSION = '2.0.2';
+    const VERSION = '2.0.3';
 
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\Merchant
