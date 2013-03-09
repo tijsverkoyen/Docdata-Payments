@@ -25,7 +25,7 @@ use TijsVerkoyen\DocDataPayments\Types\StatusRequest;
  */
 class DocDataPayments
 {
-    const DEBUG = true;
+    const DEBUG = false;
     const VERSION = '2.0.0';
 
     /**
