@@ -96,7 +96,7 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
         $paymentPreferences->setNumberOfDaysToPay(4);
 
         $response = $this->docDataPayments->create(
-            time(),
+            microtime(),
             $shopper,
             $totalGrossAmount,
             $billTo,
@@ -144,7 +144,7 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
         $paymentPreferences->setNumberOfDaysToPay(4);
 
         $var = $this->docDataPayments->create(
-            time(),
+            microtime(),
             $shopper,
             $totalGrossAmount,
             $billTo,
@@ -219,7 +219,7 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
         $paymentPreferences->setNumberOfDaysToPay(4);
 
         $var = $this->docDataPayments->create(
-            time(),
+            microtime(),
             $shopper,
             $totalGrossAmount,
             $billTo,
