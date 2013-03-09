@@ -1,3 +1,7 @@
+# Changelog since 2.0.1
+
+* Instead of triggering fatal errors we throw nice exceptions.
+
 # Changelog since 2.0.0
 
 * PSR standards

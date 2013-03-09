@@ -132,7 +132,7 @@ class DocDataPayments
         if (!$this->soapclient) {
             $options = array(
                 'trace' => self::DEBUG,
-                'exceptions' => false,
+                'exceptions' => true,
                 'connection_timeout' => $this->getTimeout(),
                 'user_agent' => $this->getUserAgent(),
                 'cache_wsdl' => (self::DEBUG) ? WSDL_CACHE_NONE : WSDL_CACHE_BOTH,
