@@ -11,21 +11,21 @@ class PaymentRequest extends BaseObject
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\PaymentReference
      */
-    protected $paymentReference;
+    protected $initialPaymentReference;
 
     /**
-     * @param \TijsVerkoyen\DocDataPayments\Types\PaymentReference $paymentReference
+     * @param \TijsVerkoyen\DocDataPayments\Types\PaymentReference $initialPaymentReference
      */
-    public function setPaymentReference(PaymentReference $paymentReference)
+    public function setInitialPaymentReference($initialPaymentReference)
     {
-        $this->paymentReference = $paymentReference;
+        $this->initialPaymentReference = $initialPaymentReference;
     }
 
     /**
      * @return \TijsVerkoyen\DocDataPayments\Types\PaymentReference
      */
-    public function getPaymentReference()
+    public function getInitialPaymentReference()
     {
-        return $this->paymentReference;
+        return $this->initialPaymentReference;
     }
 }

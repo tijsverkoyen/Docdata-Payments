@@ -26,6 +26,11 @@ class Payment extends BaseObject
     protected $authorization;
 
     /**
+     * @var \TijsVerkoyen\DocDataPayments\Types\PaymentInfo
+     */
+    protected $extended;
+
+    /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Authorization $authorization
      */
     public function setAuthorization($authorization)

@@ -1,19 +1,17 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
-use TijsVerkoyen\DocDataPayments\DocDataPayments;
-
 /**
- * DocDataPayments Refund class
+ * DocDataPayments Chargeback class
  *
- * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
+ * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Refund extends BaseObject
+class Chargeback extends BaseObject
 {
     /**
      * @var string
      */
-    protected $merchantRefundId;
+    protected $chargebackId;
 
     /**
      * @var string
@@ -47,19 +45,19 @@ class Refund extends BaseObject
     }
 
     /**
-     * @param string $merchantRefundId
+     * @param string $chargebackId
      */
-    public function setMerchantRefundId($merchantRefundId)
+    public function setChargebackId($chargebackId)
     {
-        $this->merchantRefundId = $merchantRefundId;
+        $this->chargebackId = $chargebackId;
     }
 
     /**
      * @return string
      */
-    public function getMerchantRefundId()
+    public function getChargebackId()
     {
-        return $this->merchantRefundId;
+        return $this->chargebackId;
     }
 
     /**

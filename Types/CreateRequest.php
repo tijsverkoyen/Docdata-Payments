@@ -100,7 +100,7 @@ class CreateRequest extends BaseObject
     /**
      * @var string
      */
-    protected $version = '0.9';
+    protected $version = '1.0';
 
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Destination $billTo

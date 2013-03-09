@@ -11,7 +11,7 @@ use TijsVerkoyen\DocDataPayments\DocDataPayments;
 class Authorization extends BaseObject
 {
     /**
-     * @var string
+     * @var \TijsVerkoyen\DocDataPayments\Types\AuthorizationStatus
      */
     protected $status;
 
@@ -34,6 +34,11 @@ class Authorization extends BaseObject
      * @var \TijsVerkoyen\DocDataPayments\Types\Refund
      */
     protected $refund;
+
+    /**
+     * @var \TijsVerkoyen\DocDataPayments\Types\Chargeback
+     */
+    protected $chargeback;
 
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Amount $amount
@@ -65,6 +70,22 @@ class Authorization extends BaseObject
     public function getCapture()
     {
         return $this->capture;
+    }
+
+    /**
+     * @param \TijsVerkoyen\DocDataPayments\Types\Chargeback $chargeback
+     */
+    public function setChargeback($chargeback)
+    {
+        $this->chargeback = $chargeback;
+    }
+
+    /**
+     * @return \TijsVerkoyen\DocDataPayments\Types\Chargeback
+     */
+    public function getChargeback()
+    {
+        return $this->chargeback;
     }
 
     /**
@@ -100,7 +121,7 @@ class Authorization extends BaseObject
     }
 
     /**
-     * @param string $status
+     * @param \TijsVerkoyen\DocDataPayments\Types\AuthorizationStatus $status
      */
     public function setStatus($status)
     {
@@ -108,7 +129,7 @@ class Authorization extends BaseObject
     }
 
     /**
-     * @return string
+     * @return \TijsVerkoyen\DocDataPayments\Types\AuthorizationStatus
      */
     public function getStatus()
     {

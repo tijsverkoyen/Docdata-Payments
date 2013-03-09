@@ -51,6 +51,13 @@ class ApproximateTotals extends BaseObject
     protected $totalRefunded;
 
     /**
+     * The currently chargedback amount for the order.
+     *
+     * @var int
+     */
+    protected $totalChargedback;
+
+    /**
      * If multiple currencies are included in the totals, then the approximation, for convenience is
      * based on a conversion. This is the currency that is used to convert to.
      *
@@ -144,6 +151,22 @@ class ApproximateTotals extends BaseObject
     public function getTotalCaptured()
     {
         return $this->totalCaptured;
+    }
+
+    /**
+     * @param int $totalChargedback
+     */
+    public function setTotalChargedback($totalChargedback)
+    {
+        $this->totalChargedback = $totalChargedback;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalChargedback()
+    {
+        return $this->totalChargedback;
     }
 
     /**

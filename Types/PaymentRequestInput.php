@@ -21,255 +21,113 @@ class PaymentRequestInput extends BaseObject
     protected $paymentAmount;
 
     /**
-     * @var string
+     * @var \TijsVerkoyen\DocDataPayments\Types\AmexPaymentInput
      */
-    protected $clientHolderAccountNr;
+    protected $amexPaymentInput;
 
     /**
-     * @var string
+     * @var \TijsVerkoyen\DocDataPayments\Types\MasterCardPaymentInput
      */
-    protected $clientHolderLastName;
+    protected $masterCardPaymentInput;
 
     /**
-     * @var string
+     * @var \TijsVerkoyen\DocDataPayments\Types\VisaPaymentInput
      */
-    protected $clientHolderLastNameAdd;
+    protected $visaPaymentInput;
 
     /**
-     * @var string
+     * @var \TijsVerkoyen\DocDataPayments\Types\DirectDebitPaymentInput
      */
-    protected $clientHolderFirstName;
+    protected $directDebitPaymentInput;
 
     /**
-     * @var string
+     * @var \TijsVerkoyen\DocDataPayments\Types\BankTransferPaymentInput
      */
-    protected $clientHolderInitials;
+    protected $bankTransferPaymentInput;
 
     /**
-     * @var string
+     * @var \TijsVerkoyen\DocDataPayments\Types\elvPaymentInput
      */
-    protected $clientHolderFullName;
+    protected $elvPaymentInput;
 
     /**
-     * @var string
+     * @param \TijsVerkoyen\DocDataPayments\Types\AmexPaymentInput $amexPaymentInput
      */
-    protected $clientHolderCity;
-
-    /**
-     * @var string
-     */
-    protected $clientHolderBankCountry;
-
-    /**
-     * @var string
-     */
-    protected $clientCompany;
-
-    /**
-     * @var string
-     */
-    protected $creditCardcvc2;
-
-    /**
-     * @var string
-     */
-    protected $creditCardExpireDate;
-
-    /**
-     * @var string
-     */
-    protected $creditCardNr;
-
-    /**
-     * @param string $clientCompany
-     */
-    public function setClientCompany($clientCompany)
+    public function setAmexPaymentInput($amexPaymentInput)
     {
-        $this->clientCompany = $clientCompany;
+        $this->amexPaymentInput = $amexPaymentInput;
     }
 
     /**
-     * @return string
+     * @return \TijsVerkoyen\DocDataPayments\Types\AmexPaymentInput
      */
-    public function getClientCompany()
+    public function getAmexPaymentInput()
     {
-        return $this->clientCompany;
+        return $this->amexPaymentInput;
     }
 
     /**
-     * @param string $clientHolderAccountNr
+     * @param \TijsVerkoyen\DocDataPayments\Types\BankTransferPaymentInput $bankTransferPaymentInput
      */
-    public function setClientHolderAccountNr($clientHolderAccountNr)
+    public function setBankTransferPaymentInput($bankTransferPaymentInput)
     {
-        $this->clientHolderAccountNr = $clientHolderAccountNr;
+        $this->bankTransferPaymentInput = $bankTransferPaymentInput;
     }
 
     /**
-     * @return string
+     * @return \TijsVerkoyen\DocDataPayments\Types\BankTransferPaymentInput
      */
-    public function getClientHolderAccountNr()
+    public function getBankTransferPaymentInput()
     {
-        return $this->clientHolderAccountNr;
+        return $this->bankTransferPaymentInput;
     }
 
     /**
-     * @param string $clientHolderBankCountry
+     * @param \TijsVerkoyen\DocDataPayments\Types\DirectDebitPaymentInput $directDebitPaymentInput
      */
-    public function setClientHolderBankCountry($clientHolderBankCountry)
+    public function setDirectDebitPaymentInput($directDebitPaymentInput)
     {
-        $this->clientHolderBankCountry = $clientHolderBankCountry;
+        $this->directDebitPaymentInput = $directDebitPaymentInput;
     }
 
     /**
-     * @return string
+     * @return \TijsVerkoyen\DocDataPayments\Types\DirectDebitPaymentInput
      */
-    public function getClientHolderBankCountry()
+    public function getDirectDebitPaymentInput()
     {
-        return $this->clientHolderBankCountry;
+        return $this->directDebitPaymentInput;
     }
 
     /**
-     * @param string $clientHolderCity
+     * @param \TijsVerkoyen\DocDataPayments\Types\elvPaymentInput $elvPaymentInput
      */
-    public function setClientHolderCity($clientHolderCity)
+    public function setElvPaymentInput($elvPaymentInput)
     {
-        $this->clientHolderCity = $clientHolderCity;
+        $this->elvPaymentInput = $elvPaymentInput;
     }
 
     /**
-     * @return string
+     * @return \TijsVerkoyen\DocDataPayments\Types\elvPaymentInput
      */
-    public function getClientHolderCity()
+    public function getElvPaymentInput()
     {
-        return $this->clientHolderCity;
+        return $this->elvPaymentInput;
     }
 
     /**
-     * @param string $clientHolderFirstName
+     * @param \TijsVerkoyen\DocDataPayments\Types\MasterCardPaymentInput $masterCardPaymentInput
      */
-    public function setClientHolderFirstName($clientHolderFirstName)
+    public function setMasterCardPaymentInput($masterCardPaymentInput)
     {
-        $this->clientHolderFirstName = $clientHolderFirstName;
+        $this->masterCardPaymentInput = $masterCardPaymentInput;
     }
 
     /**
-     * @return string
+     * @return \TijsVerkoyen\DocDataPayments\Types\MasterCardPaymentInput
      */
-    public function getClientHolderFirstName()
+    public function getMasterCardPaymentInput()
     {
-        return $this->clientHolderFirstName;
-    }
-
-    /**
-     * @param string $clientHolderFullName
-     */
-    public function setClientHolderFullName($clientHolderFullName)
-    {
-        $this->clientHolderFullName = $clientHolderFullName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getClientHolderFullName()
-    {
-        return $this->clientHolderFullName;
-    }
-
-    /**
-     * @param string $clientHolderInitials
-     */
-    public function setClientHolderInitials($clientHolderInitials)
-    {
-        $this->clientHolderInitials = $clientHolderInitials;
-    }
-
-    /**
-     * @return string
-     */
-    public function getClientHolderInitials()
-    {
-        return $this->clientHolderInitials;
-    }
-
-    /**
-     * @param string $clientHolderLastName
-     */
-    public function setClientHolderLastName($clientHolderLastName)
-    {
-        $this->clientHolderLastName = $clientHolderLastName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getClientHolderLastName()
-    {
-        return $this->clientHolderLastName;
-    }
-
-    /**
-     * @param string $clientHolderLastNameAdd
-     */
-    public function setClientHolderLastNameAdd($clientHolderLastNameAdd)
-    {
-        $this->clientHolderLastNameAdd = $clientHolderLastNameAdd;
-    }
-
-    /**
-     * @return string
-     */
-    public function getClientHolderLastNameAdd()
-    {
-        return $this->clientHolderLastNameAdd;
-    }
-
-    /**
-     * @param string $creditCardExpireDate
-     */
-    public function setCreditCardExpireDate($creditCardExpireDate)
-    {
-        $this->creditCardExpireDate = $creditCardExpireDate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreditCardExpireDate()
-    {
-        return $this->creditCardExpireDate;
-    }
-
-    /**
-     * @param string $creditCardNr
-     */
-    public function setCreditCardNr($creditCardNr)
-    {
-        $this->creditCardNr = $creditCardNr;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreditCardNr()
-    {
-        return $this->creditCardNr;
-    }
-
-    /**
-     * @param string $creditCardcvc2
-     */
-    public function setCreditCardcvc2($creditCardcvc2)
-    {
-        $this->creditCardcvc2 = $creditCardcvc2;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreditCardcvc2()
-    {
-        return $this->creditCardcvc2;
+        return $this->masterCardPaymentInput;
     }
 
     /**
@@ -289,7 +147,7 @@ class PaymentRequestInput extends BaseObject
     }
 
     /**
-     * @param string $paymentMethod Possible values are: AMEX, MASTERCARD, VISA, DIRECT_DEBIT, BANK_TRANSFER, ELV
+     * @param string $paymentMethod
      */
     public function setPaymentMethod($paymentMethod)
     {
@@ -302,5 +160,21 @@ class PaymentRequestInput extends BaseObject
     public function getPaymentMethod()
     {
         return $this->paymentMethod;
+    }
+
+    /**
+     * @param \TijsVerkoyen\DocDataPayments\Types\VisaPaymentInput $visaPaymentInput
+     */
+    public function setVisaPaymentInput($visaPaymentInput)
+    {
+        $this->visaPaymentInput = $visaPaymentInput;
+    }
+
+    /**
+     * @return \TijsVerkoyen\DocDataPayments\Types\VisaPaymentInput
+     */
+    public function getVisaPaymentInput()
+    {
+        return $this->visaPaymentInput;
     }
 }

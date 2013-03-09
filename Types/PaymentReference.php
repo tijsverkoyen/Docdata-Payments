@@ -21,6 +21,11 @@ class PaymentReference extends BaseObject
     protected $paymentId;
 
     /**
+     * @var string
+     */
+    protected $merchantReference;
+
+    /**
      * @param string $linkId
      */
     public function setLinkId($linkId)
@@ -50,5 +55,21 @@ class PaymentReference extends BaseObject
     public function getPaymentId()
     {
         return $this->paymentId;
+    }
+
+    /**
+     * @param string $merchantReference
+     */
+    public function setMerchantReference($merchantReference)
+    {
+        $this->merchantReference = $merchantReference;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMerchantReference()
+    {
+        return $this->merchantReference;
     }
 }

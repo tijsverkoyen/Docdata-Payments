@@ -26,6 +26,11 @@ class Capture extends BaseObject
     protected $amount;
 
     /**
+     * @var string
+     */
+    protected $reason;
+
+    /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Amount $amount
      */
     public function setAmount($amount)
@@ -55,6 +60,22 @@ class Capture extends BaseObject
     public function getMerchantCaptureId()
     {
         return $this->merchantCaptureId;
+    }
+
+    /**
+     * @param string $reason
+     */
+    public function setReason($reason)
+    {
+        $this->reason = $reason;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReason()
+    {
+        return $this->reason;
     }
 
     /**
