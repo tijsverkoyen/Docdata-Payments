@@ -158,6 +158,18 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests DocDataPayments->capture()
+     */
+    public function testCapture()
+    {
+        $this->markTestSkipped('we can\'t test this without using a fixed payment id, so alter the id below');
+        $response = $this->docDataPayments->capture(4905992874);
+
+        $this->assertInstanceOf('\TijsVerkoyen\DocDataPayments\Types\CaptureSuccess', $response);
+        $this->assertEquals('SUCCESS', $response->getSuccess()->getCode());
+    }
+
+    /**
      * Tests DocDataPayments->status()
      */
     public function testStatus()

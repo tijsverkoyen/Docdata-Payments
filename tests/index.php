@@ -209,6 +209,9 @@ try {
 //
 //    $response = $docDataPayments->cancel($response->getKey());
 
+    // capture
+//    $response = $docDataPayments->capture(4905992874);
+
     // status
 //    $name = new Name();
 //    $name->setFirst('Tijs');

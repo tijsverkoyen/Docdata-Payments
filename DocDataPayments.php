@@ -3,6 +3,7 @@ namespace TijsVerkoyen\DocDataPayments;
 
 use TijsVerkoyen\DocDataPayments\Types\Amount;
 use TijsVerkoyen\DocDataPayments\Types\CancelRequest;
+use TijsVerkoyen\DocDataPayments\Types\CaptureRequest;
 use TijsVerkoyen\DocDataPayments\Types\CreateRequest;
 use TijsVerkoyen\DocDataPayments\Types\Destination;
 use TijsVerkoyen\DocDataPayments\Types\Invoice;
@@ -73,6 +74,8 @@ class DocDataPayments
         'cancelError' => 'TijsVerkoyen\DocDataPayments\Types\CancelError',
         'cancelSuccess' => 'TijsVerkoyen\DocDataPayments\Types\CancelSuccess',
         'capture' => 'TijsVerkoyen\DocDataPayments\Types\Capture',
+        'captureError' => 'TijsVerkoyen\DocDataPayments\Types\CaptureError',
+        'captureSuccess' => 'TijsVerkoyen\DocDataPayments\Types\CaptureSuccess',
         'chargeback' => 'TijsVerkoyen\DocDataPayments\Types\Chargeback',
         'country' => 'TijsVerkoyen\DocDataPayments\Types\Country',
         'createError' => 'TijsVerkoyen\DocDataPayments\Types\CreateError',
@@ -316,8 +319,8 @@ class DocDataPayments
     public function cancel($paymentOrderKey)
     {
         $request = new CancelRequest();
-	    $request->setMerchant($this->merchant);
-	    $request->setPaymentOrderKey($paymentOrderKey);
+        $request->setMerchant($this->merchant);
+        $request->setPaymentOrderKey($paymentOrderKey);
 
         // make the call
         $response = $this->getSoapClient()->cancel($request->toArray());
@@ -335,6 +338,79 @@ class DocDataPayments
         }
 
         return $response->cancelSuccess;
+    }
+
+    /**
+     * The capture command is used to create requests for performing captures
+     * on authorized payments. A merchant can choose to have it set up through
+     * Docdata Payments back office to automatically have the full
+     * authorization amount captured for each payment after a configured delay.
+     *The capture command can then be used to overwrite this default capture.
+     * If no default capture is configured, a merchant should use the capture
+     * command to create one.
+     *
+     * @param  string                                              $paymentId
+     * @param  string[optional]                                    $merchantCaptureReference
+     * @param  TijsVerkoyen\DocDataPayments\Types\Amount[optional] $amount
+     * @param  string[optional]                                    $itemCode
+     * @param  string[optional]                                    $description
+     * @param  bool[optional]                                      $finalCapture
+     * @param  bool[optional]                                      $cancelReserved
+     * @param  string[optional]                                    $requiredCaptureDate
+     * @return CaptureSuccess
+     */
+    public function capture(
+        $paymentId,
+        $merchantCaptureReference = null,
+        Amount $amount = null,
+        $itemCode = null,
+        $description = null,
+        $finalCapture = null,
+        $cancelReserved = null,
+        $requiredCaptureDate = null
+    ) {
+        $request = new CaptureRequest();
+        $request->setMerchant($this->merchant);
+        $request->setPaymentId($paymentId);
+
+        if ($merchantCaptureReference !== null) {
+            $request->setMerchantCaptureReference($merchantCaptureReference);
+        }
+        if ($amount !== null) {
+            $request->setAmount($amount);
+        }
+        if ($itemCode !== null) {
+            $request->setItemCode($itemCode);
+        }
+        if ($description !== null) {
+            $request->setDescription($description);
+        }
+        if ($finalCapture !== null) {
+            $request->setFinalCapture($finalCapture);
+        }
+        if ($cancelReserved !== null) {
+            $request->setCancelReserved($cancelReserved);
+        }
+        if ($requiredCaptureDate !== null) {
+            $request->setRequiredCaptureDate($requiredCaptureDate);
+        }
+
+        // make the call
+        $response = $this->getSoapClient()->capture($request->toArray());
+
+        // validate response
+        if (isset($response->captureError)) {
+            if (self::DEBUG) {
+                var_dump($this->soapClient->__getLastRequest());
+                var_dump($response->captureError);
+            }
+
+            throw new Exception(
+                $response->captureError->getError()->getExplanation()
+            );
+        }
+
+        return $response->captureSuccess;
     }
 
     /**
