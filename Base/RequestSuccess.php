@@ -8,24 +8,24 @@ namespace TijsVerkoyen\DocDataPayments\Base;
  */
 class RequestSuccess extends Object
 {
-	/**
-	 * @var \TijsVerkoyen\DocDataPayments\Types\Success
-	 */
-	protected $success;
+    /**
+     * @var \TijsVerkoyen\DocDataPayments\Types\Success
+     */
+    protected $success;
 
-	/**
-	 * @param \TijsVerkoyen\DocDataPayments\Types\Success $success
-	 */
-	public function setSuccess(Success $success)
-	{
-		$this->success = $success;
-	}
+    /**
+     * @param \TijsVerkoyen\DocDataPayments\Types\Success $success
+     */
+    public function setSuccess(Success $success)
+    {
+        $this->success = $success;
+    }
 
-	/**
-	 * @return \TijsVerkoyen\DocDataPayments\Types\Success
-	 */
-	public function getSuccess()
-	{
-		return $this->success;
-	}
+    /**
+     * @return \TijsVerkoyen\DocDataPayments\Types\Success
+     */
+    public function getSuccess()
+    {
+        return $this->success;
+    }
 }
