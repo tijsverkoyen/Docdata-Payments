@@ -251,6 +251,19 @@ try {
 //    );
 //
 //    $response = $docDataPayments->status($response->getKey());
+
+    // getPaymentUrl
+//    $response = $docDataPayments->getPaymentUrl(
+//        'nl',
+//        '6F2F1B5C81FF353E25CBC1A6C8EBC3FD',
+//        null,
+//        null,
+//        null,
+//        null,
+//        null,
+//        null,
+//        false
+//    );
 } catch (Exception $e) {
     var_dump($e);
 }
