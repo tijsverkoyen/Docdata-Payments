@@ -214,7 +214,7 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
             $paymentPreferences
         );
 
-        $response =  $this->docDataPayments->status($var->getKey());
+        $response = $this->docDataPayments->status($var->getKey());
 
         $this->assertInstanceOf('\TijsVerkoyen\DocDataPayments\Types\StatusSuccess', $response);
         $this->assertEquals('SUCCESS', $response->getSuccess()->getCode());
