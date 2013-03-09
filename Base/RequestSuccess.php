@@ -1,12 +1,12 @@
 <?php
-namespace TijsVerkoyen\DocDataPayments\Types;
+namespace TijsVerkoyen\DocDataPayments\Base;
 
 /**
- * DocDataPayments Success class
+ * DocDataPayments RequestSuccess class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Success extends Object
+class RequestSuccess extends Object
 {
 	/**
 	 * @var \TijsVerkoyen\DocDataPayments\Types\Success

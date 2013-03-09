@@ -2,11 +2,11 @@
 namespace TijsVerkoyen\DocDataPayments\Base;
 
 /**
- * DocDataPayments Error class
+ * DocDataPayments RequestError class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Error extends Object
+class RequestError extends Object
 {
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\Error

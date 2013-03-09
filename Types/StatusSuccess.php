@@ -1,14 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
-use TijsVerkoyen\DocDataPayments\Base\Success;
+use TijsVerkoyen\DocDataPayments\Base\RequestSuccess;
 
 /**
  * DocDataPayments StatusRequest class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class StatusSuccess extends Success
+class StatusSuccess extends RequestSuccess
 {
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\Report

@@ -1,14 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
-use TijsVerkoyen\DocDataPayments\Base\Success;
+use TijsVerkoyen\DocDataPayments\Base\RequestSuccess;
 
 /**
  * DocDataPayments CreateRequest class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class CreateSuccess extends Success
+class CreateSuccess extends RequestSuccess
 {
     /**
      * Generated key identifying the merchant and payment order.

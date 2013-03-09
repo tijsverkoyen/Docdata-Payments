@@ -27,45 +27,45 @@ $docDataPayments->setCredentials(USERNAME, PASSWORD);
 
 try {
     // simple start of payment
-//    $name = new Name();
-//    $name->setFirst('Tijs');
-//    $name->setLast('Verkoyen');
-//
-//    $shopper = new Shopper();
-//    $shopper->setId(1);
-//    $shopper->setGender('M');
-//    $shopper->setName($name);
-//    $shopper->setEmail('php-docdatapayments@verkoyen.eu');
-//    $shopper->setLanguage(new Language('nl'));
-//
-//    $totalGrossAmount = new Amount(2000);
-//
-//    $address = new Address();
-//    $address->setStreet('Kerkstraat');
-//    $address->setHouseNumber(108);
-//    $address->setPostalCode('9050');
-//    $address->setCity('Gentbrugge');
-//    $address->setCountry(new Country('BE'));
-//
-//    $name = new Name();
-//    $name->setFirst('Tijs');
-//    $name->setLast('Verkoyen');
-//
-//    $billTo = new Destination();
-//    $billTo->setName($name);
-//    $billTo->setAddress($address);
-//
-//    $paymentPreferences = new PaymentPreferences();
-//    $paymentPreferences->setProfile('standard');
-//    $paymentPreferences->setNumberOfDaysToPay(4);
-//
-//    $response = $docDataPayments->create(
-//        time(),
-//        $shopper,
-//        $totalGrossAmount,
-//        $billTo,
-//        $paymentPreferences
-//    );
+    $name = new Name();
+    $name->setFirst('Tijs');
+    $name->setLast('Verkoyen');
+
+    $shopper = new Shopper();
+    $shopper->setId(1);
+    $shopper->setGender('M');
+    $shopper->setName($name);
+    $shopper->setEmail('php-docdatapayments@verkoyen.eu');
+    $shopper->setLanguage(new Language('nl'));
+
+    $totalGrossAmount = new Amount(2000);
+
+    $address = new Address();
+    $address->setStreet('Kerkstraat');
+    $address->setHouseNumber(108);
+    $address->setPostalCode('9050');
+    $address->setCity('Gentbrugge');
+    $address->setCountry(new Country('BE'));
+
+    $name = new Name();
+    $name->setFirst('Tijs');
+    $name->setLast('Verkoyen');
+
+    $billTo = new Destination();
+    $billTo->setName($name);
+    $billTo->setAddress($address);
+
+    $paymentPreferences = new PaymentPreferences();
+    $paymentPreferences->setProfile('standard');
+    $paymentPreferences->setNumberOfDaysToPay(4);
+
+    $response = $docDataPayments->create(
+        time(),
+        $shopper,
+        $totalGrossAmount,
+        $billTo,
+        $paymentPreferences
+    );
 
     // extended start of payment, untested
 //    $name = new Name();
@@ -258,7 +258,6 @@ try {
 //    );
 //
 //    $response = $docDataPayments->cancel($response->getKey());
-    $response = $docDataPayments->cancel('d');
 
     // status
 //    $name = new Name();

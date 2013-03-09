@@ -1,13 +1,13 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
-use TijsVerkoyen\DocDataPayments\Base\Error;
+use TijsVerkoyen\DocDataPayments\Base\RequestError;
 
 /**
  * DocDataPayments StatusError class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class StatusError extends Error
+class StatusError extends RequestError
 {
 }
