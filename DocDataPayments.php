@@ -12,7 +12,6 @@ use TijsVerkoyen\DocDataPayments\Types\PaymentPreferences;
 use TijsVerkoyen\DocDataPayments\Types\PaymentRequest;
 use TijsVerkoyen\DocDataPayments\Types\PaymentRequestInput;
 use TijsVerkoyen\DocDataPayments\Types\Shopper;
-use TijsVerkoyen\DocDataPayments\Types\StartRequest;
 use TijsVerkoyen\DocDataPayments\Types\StatusRequest;
 
 /**
@@ -26,7 +25,7 @@ use TijsVerkoyen\DocDataPayments\Types\StatusRequest;
 class DocDataPayments
 {
     const DEBUG = false;
-    const VERSION = '2.0.1';
+    const VERSION = '2.0.2';
 
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\Merchant
@@ -304,40 +303,6 @@ class DocDataPayments
         }
 
         return $response->createSuccess;
-    }
-
-    public function start(
-        $paymentOrderKey,
-        PaymentRequestInput $payment = null,
-        PaymentRequest $recuringPaymentRequest = null
-    ) {
-        $startRequest = new StartRequest();
-        $startRequest->setMerchant($this->merchant);
-        $startRequest->setPaymentOrderKey($paymentOrderKey);
-
-        if ($payment != null) {
-            $startRequest->setPayment($payment);
-        }
-        if ($recuringPaymentRequest != null) {
-            $startRequest->setRecurringPaymentRequest($recuringPaymentRequest);
-        }
-
-        // make the call
-        $response = $this->getSoapClient()->start($startRequest->toArray());
-
-        // validate response
-        if (isset($response->startError)) {
-            if (self::DEBUG) {
-                var_dump($this->soapClient->__getLastRequest());
-                var_dump($response->startError);
-            }
-
-            throw new Exception(
-                $response->startError->getError()->getExplanation()
-            );
-        }
-
-        return $response->statusSuccess;
     }
 
     /**
