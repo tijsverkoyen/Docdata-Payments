@@ -259,36 +259,36 @@ class DocDataPayments
         Invoice $invoice = null,
         $includeCosts = null
     ) {
-        $createRequest = new CreateRequest();
-        $createRequest->setMerchant($this->merchant);
-        $createRequest->setMerchantOrderReference($merchantOrderReference);
-        $createRequest->setShopper($shopper);
-        $createRequest->setTotalGrossAmount($totalGrossAmount);
-        $createRequest->setBillTo($billTo);
+        $request = new CreateRequest();
+        $request->setMerchant($this->merchant);
+        $request->setMerchantOrderReference($merchantOrderReference);
+        $request->setShopper($shopper);
+        $request->setTotalGrossAmount($totalGrossAmount);
+        $request->setBillTo($billTo);
         if ($description !== null) {
-            $createRequest->setDescription($description);
+            $request->setDescription($description);
         }
         if ($receiptText !== null) {
-            $createRequest->setReceiptText($receiptText);
+            $request->setReceiptText($receiptText);
         }
         if ($paymentPreferences != null) {
-            $createRequest->setPaymentPreferences($paymentPreferences);
+            $request->setPaymentPreferences($paymentPreferences);
         }
         if ($menuPreferences !== null) {
-            $createRequest->setMenuPreferences($menuPreferences);
+            $request->setMenuPreferences($menuPreferences);
         }
         if ($paymentRequest !== null) {
-            $createRequest->setPaymentRequest($paymentRequest);
+            $request->setPaymentRequest($paymentRequest);
         }
         if ($invoice !== null) {
-            $createRequest->setInvoice($invoice);
+            $request->setInvoice($invoice);
         }
         if ($includeCosts !== null) {
-            $createRequest->setIncludeCosts($includeCosts);
+            $request->setIncludeCosts($includeCosts);
         }
 
         // make the call
-        $response = $this->getSoapClient()->create($createRequest->toArray());
+        $response = $this->getSoapClient()->create($request->toArray());
 
         // validate response
         if (isset($response->createError)) {
@@ -315,12 +315,12 @@ class DocDataPayments
      */
     public function cancel($paymentOrderKey)
     {
-        $cancelRequest = new CancelRequest();
-        $cancelRequest->setMerchant($this->merchant);
-        $cancelRequest->setPaymentOrderKey($paymentOrderKey);
+        $request = new CancelRequest();
+	    $request->setMerchant($this->merchant);
+	    $request->setPaymentOrderKey($paymentOrderKey);
 
         // make the call
-        $response = $this->getSoapClient()->cancel($cancelRequest->toArray());
+        $response = $this->getSoapClient()->cancel($request->toArray());
 
         // validate response
         if (isset($response->cancelError)) {
@@ -347,12 +347,12 @@ class DocDataPayments
      */
     public function status($paymentOrderKey)
     {
-        $statusRequest = new StatusRequest();
-        $statusRequest->setMerchant($this->merchant);
-        $statusRequest->setPaymentOrderKey($paymentOrderKey);
+        $request = new StatusRequest();
+        $request->setMerchant($this->merchant);
+        $request->setPaymentOrderKey($paymentOrderKey);
 
         // make the call
-        $response = $this->getSoapClient()->status($statusRequest->toArray());
+        $response = $this->getSoapClient()->status($request->toArray());
 
         // validate response
         if (isset($response->statusError)) {
