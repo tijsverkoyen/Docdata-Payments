@@ -1,14 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
-use TijsVerkoyen\DocDataPayments\DocDataPayments;
+use TijsVerkoyen\DocDataPayments\Base\Object;
 
 /**
  * DocDataPayments Capture class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Capture extends BaseObject
+class Capture extends Object
 {
     /**
      * @var string

@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments PaymentReference class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class PaymentReference extends BaseObject
+class PaymentReference extends Object
 {
     /**
      * A linkID token, which is a UUID type 4 (see RFC-4122 and ITU-T Rec. X.667).

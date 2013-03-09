@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments PaymentRequest class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class PaymentRequest extends BaseObject
+class PaymentRequest extends Object
 {
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\PaymentReference

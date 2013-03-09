@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments CancelRequest class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class CancelRequest extends BaseObject
+class CancelRequest extends Object
 {
     /**
      * Merchant credentials.

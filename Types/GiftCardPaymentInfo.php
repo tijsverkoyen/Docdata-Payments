@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments GiftCardPaymentInfo class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class GiftCardPaymentInfo extends BaseObject
+class GiftCardPaymentInfo extends Object
 {
     /**
      * @var string

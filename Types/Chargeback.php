@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments Chargeback class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Chargeback extends BaseObject
+class Chargeback extends Object
 {
     /**
      * @var string

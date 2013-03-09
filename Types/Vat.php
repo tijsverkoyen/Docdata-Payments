@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments Invoice class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Vat extends BaseObject
+class Vat extends Object
 {
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\Amount

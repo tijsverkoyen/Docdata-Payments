@@ -1,14 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
-use TijsVerkoyen\DocDataPayments\DocDataPayments;
+use TijsVerkoyen\DocDataPayments\Base\Object;
 
 /**
  * DocDataPayments Authorization class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Authorization extends BaseObject
+class Authorization extends Object
 {
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\AuthorizationStatus

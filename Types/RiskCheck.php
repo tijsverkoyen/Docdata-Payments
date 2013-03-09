@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments RiskCheck class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class RiskCheck extends BaseObject
+class RiskCheck extends Object
 {
     /**
      * @var string

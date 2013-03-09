@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments AmexPaymentInfo class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class AmexPaymentInfo extends BaseObject
+class AmexPaymentInfo extends Object
 {
     /**
      * @var string

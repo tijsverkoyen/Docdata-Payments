@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments Invoice class
  *
  * @author  Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Invoice extends BaseObject
+class Invoice extends Object
 {
     /**
      * Total net amount for this order.

@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments PaymentRequestInput class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class PaymentRequestInput extends BaseObject
+class PaymentRequestInput extends Object
 {
     /**
      * Payment method to be used.

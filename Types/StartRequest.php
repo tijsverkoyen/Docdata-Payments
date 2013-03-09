@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments StartRequest class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class StartRequest extends BaseObject
+class StartRequest extends Object
 {
     /**
      * Merchant credentials.

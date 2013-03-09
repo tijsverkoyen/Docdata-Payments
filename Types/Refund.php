@@ -1,14 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
-use TijsVerkoyen\DocDataPayments\DocDataPayments;
+use TijsVerkoyen\DocDataPayments\Base\Object;
 
 /**
  * DocDataPayments Refund class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class Refund extends BaseObject
+class Refund extends Object
 {
     /**
      * @var string

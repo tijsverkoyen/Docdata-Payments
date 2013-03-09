@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments ApproximateTotals class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class ApproximateTotals extends BaseObject
+class ApproximateTotals extends Object
 {
     /**
      * The initial total amount requested for the order.

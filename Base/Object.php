@@ -1,14 +1,14 @@
 <?php
-namespace TijsVerkoyen\DocDataPayments\Types;
+namespace TijsVerkoyen\DocDataPayments\Base;
 
 use TijsVerkoyen\DocDataPayments\DocDataPayments;
 
 /**
- * DocDataPayments BaseObject class
+ * DocDataPayments Object class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class BaseObject
+class Object
 {
     /**
      * @return array

@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments MenuPreferences class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class MenuPreferences extends BaseObject
+class MenuPreferences extends Object
 {
     /**
      * The id of the CSS file that should be used in the payment menu.

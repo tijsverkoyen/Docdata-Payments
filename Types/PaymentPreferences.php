@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments PaymentPreferences class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class PaymentPreferences extends BaseObject
+class PaymentPreferences extends Object
 {
     /**
      * The profile that is used to select the payment methods that can be used

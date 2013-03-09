@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments IDealPaymentInfo class
  *
  * @author Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class IDealPaymentInfo extends BaseObject
+class IDealPaymentInfo extends Object
 {
     /**
      * @var string

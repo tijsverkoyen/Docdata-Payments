@@ -1,12 +1,14 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments\Types;
 
+use TijsVerkoyen\DocDataPayments\Base\Object;
+
 /**
  * DocDataPayments StatusReport class
  *
  * @author		Tijs Verkoyen <php-docdatapayments@verkoyen.eu>
  */
-class StatusReport extends BaseObject
+class StatusReport extends Object
 {
     /**
      * @var \TijsVerkoyen\DocDataPayments\Types\ApproximateTotals
