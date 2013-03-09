@@ -1,0 +1,21 @@
+{
+	"name": "tijsverkoyen/docdatapayments",
+	"type": "library",
+	"description": "PHP Docdata Payments is a (wrapper)class to communicate with Docdata Payments.",
+	"homepage": "https://github.com/tijsverkoyen/Docdata-Payments",
+	"license": "BSD",
+	"authors": [
+		{
+			"name": "Tijs Verkoyen",
+			"email": "php-docdatapayments@verkoyen.eu",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0"
+	},
+	"target-dir": "TijsVerkoyen/DocDataPayments",
+	"autoload": {
+		"psr-0": {"TijsVerkoyen\\DocDataPayments": ""}
+	}
+}
