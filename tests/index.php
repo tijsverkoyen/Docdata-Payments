@@ -212,6 +212,9 @@ try {
     // capture
 //    $response = $docDataPayments->capture(4905992874);
 
+    // refund
+//    $response = $docDataPayments->refund(4905992874);
+
     // status
 //    $name = new Name();
 //    $name->setFirst('Tijs');

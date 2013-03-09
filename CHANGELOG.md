@@ -1,6 +1,7 @@
 # Changelog since 2.0.2
 
 * Implemented the capture-method.
+* Implemented the refund-method.
 
 # Changelog since 2.0.1
 

@@ -12,6 +12,8 @@ use TijsVerkoyen\DocDataPayments\Types\Merchant;
 use TijsVerkoyen\DocDataPayments\Types\PaymentPreferences;
 use TijsVerkoyen\DocDataPayments\Types\PaymentRequest;
 use TijsVerkoyen\DocDataPayments\Types\PaymentRequestInput;
+use TijsVerkoyen\DocDataPayments\Types\RefundRequest;
+use TijsVerkoyen\DocDataPayments\Types\SepaBankAccount;
 use TijsVerkoyen\DocDataPayments\Types\Shopper;
 use TijsVerkoyen\DocDataPayments\Types\StatusRequest;
 
@@ -101,6 +103,8 @@ class DocDataPayments
         'paymentResponse' => 'TijsVerkoyen\DocDataPayments\Types\PaymentResponse',
         'quantity' => 'TijsVerkoyen\DocDataPayments\Types\Quantity',
         'refund' => 'TijsVerkoyen\DocDataPayments\Types\Refund',
+        'refundError' => 'TijsVerkoyen\DocDataPayments\Types\RefundError',
+        'refundSuccess' => 'TijsVerkoyen\DocDataPayments\Types\RefundSuccess',
         'riskCheck' => 'TijsVerkoyen\DocDataPayments\Types\RiskCheck',
         'shopper' => 'TijsVerkoyen\DocDataPayments\Types\Shopper',
         'statusError' => 'TijsVerkoyen\DocDataPayments\Types\StatusError',
@@ -411,6 +415,75 @@ class DocDataPayments
         }
 
         return $response->captureSuccess;
+    }
+
+    /**
+     * The refund command is used to create requests for performing one or more
+     * refunds on payments that have been captured successfully. Its
+     * functionality is very similar to submitting captures.
+     *
+     * @param  string                                              $paymentId
+     * @param  string[optional]                                    $merchantRefundReference
+     * @param  TijsVerkoyen\DocDataPayments\Types\Amount[optional] $amount
+     * @param  string[optional]                                    $itemCode
+     * @param  string[optional]                                    $description
+     * @param  bool[optional]                                      $cancelReserved
+     * @param  string[optional]                                    $requiredRefundDate
+     * @param  TijsVerkoyen\DocDataPayments\Types\SepaBankAccount  $refundBankAccount
+     * @return RefundSuccess
+     */
+    public function refund(
+        $paymentId,
+        $merchantRefundReference = null,
+        Amount $amount = null,
+        $itemCode = null,
+        $description = null,
+        $cancelReserved = null,
+        $requiredRefundDate = null,
+        SepaBankAccount $refundBankAccount = null
+    ) {
+        $request = new RefundRequest();
+        $request->setMerchant($this->merchant);
+        $request->setPaymentId($paymentId);
+
+        if ($merchantRefundReference !== null) {
+            $request->setMerchantRefundReference($merchantRefundReference);
+        }
+        if ($amount !== null) {
+            $request->setAmount($amount);
+        }
+        if ($itemCode !== null) {
+            $request->setItemCode($itemCode);
+        }
+        if ($description !== null) {
+            $request->setDescription($description);
+        }
+        if ($cancelReserved !== null) {
+            $request->setCancelReserved($cancelReserved);
+        }
+        if ($requiredRefundDate !== null) {
+            $request->setRequiredRefundDate($requiredRefundDate);
+        }
+        if ($refundBankAccount !== null) {
+            $request->setRefundBankAccount($refundBankAccount);
+        }
+
+        // make the call
+        $response = $this->getSoapClient()->refund($request->toArray());
+
+        // validate response
+        if (isset($response->refundError)) {
+            if (self::DEBUG) {
+                var_dump($this->soapClient->__getLastRequest());
+                var_dump($response->refundError);
+            }
+
+            throw new Exception(
+                $response->refundError->getError()->getExplanation()
+            );
+        }
+
+        return $response->refundSuccess;
     }
 
     /**
