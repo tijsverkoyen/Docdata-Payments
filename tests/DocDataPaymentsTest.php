@@ -5,6 +5,7 @@ require_once 'config.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
 use \TijsVerkoyen\DocDataPayments\DocDataPayments;
+use \TijsVerkoyen\DocDataPayments\Types\PaidLevel;
 
 /**
  * test case.
@@ -51,9 +52,9 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
      */
     public function testGetUserAgent()
     {
-        $this->docDataPayments->setUserAgent('testing/1.0.0');
+        $this->docDataPayments->setUserAgent('testing/1.1.0');
         $this->assertEquals(
-            'PHP DocDataPayments/' . DocDataPayments::VERSION . ' testing/1.0.0',
+            'PHP DocDataPayments/' . DocDataPayments::VERSION . ' testing/1.1.0',
             $this->docDataPayments->getUserAgent()
         );
     }
@@ -230,5 +231,67 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\TijsVerkoyen\DocDataPayments\Types\StatusSuccess', $response);
         $this->assertEquals('SUCCESS', $response->getSuccess()->getCode());
+    }
+
+    public function testStatusNotPaid()
+    {
+        $name = new \TijsVerkoyen\DocDataPayments\Types\Name();
+        $name->setFirst('Tijs');
+        $name->setLast('Verkoyen');
+
+        $shopper = new \TijsVerkoyen\DocDataPayments\Types\Shopper();
+        $shopper->setId(1);
+        $shopper->setGender('M');
+        $shopper->setName($name);
+        $shopper->setEmail('php-docdatapayments@verkoyen.eu');
+        $shopper->setLanguage(new \TijsVerkoyen\DocDataPayments\Types\Language('nl'));
+
+        $totalGrossAmount = new \TijsVerkoyen\DocDataPayments\Types\Amount(2000);
+
+        $address = new \TijsVerkoyen\DocDataPayments\Types\Address();
+        $address->setStreet('Kerkstraat');
+        $address->setHouseNumber(108);
+        $address->setPostalCode('9050');
+        $address->setCity('Gentbrugge');
+        $address->setCountry(new \TijsVerkoyen\DocDataPayments\Types\Country('BE'));
+
+        $name = new \TijsVerkoyen\DocDataPayments\Types\Name();
+        $name->setFirst('Tijs');
+        $name->setLast('Verkoyen');
+
+        $billTo = new \TijsVerkoyen\DocDataPayments\Types\Destination();
+        $billTo->setName($name);
+        $billTo->setAddress($address);
+
+        $paymentPreferences = new \TijsVerkoyen\DocDataPayments\Types\PaymentPreferences();
+        $paymentPreferences->setProfile('standard');
+        $paymentPreferences->setNumberOfDaysToPay(4);
+
+        $var = $this->docDataPayments->create(
+            microtime(),
+            $shopper,
+            $totalGrossAmount,
+            $billTo,
+            $paymentPreferences
+        );
+
+        $paidLevel = $this->docDataPayments->statusPaid($var->getKey());
+
+
+        $this->assertEquals(PaidLevel::NotPaid, $paidLevel);
+    }
+
+    /**
+     * Tests DocDataPayments->statusPaid()
+     */
+    public function testStatusPaid()
+    {
+        $this->markTestSkipped('we can\'t test this without a manually docdata transaction, that has been paid.');
+
+        //Please read the manual about the paidLevel
+        $paidLevel = $this->docDataPayments->statusPaid('123ABD');
+
+        $this->assertTrue(in_array($paidLevel, array(PaidLevel::BalancedRoute, PaidLevel::SafeRoute)));
+
     }
 }

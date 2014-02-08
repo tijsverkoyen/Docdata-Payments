@@ -25,7 +25,7 @@ class Request extends Object
     /**
      * @var string
      */
-    protected $version = '1.0';
+    protected $version = '1.1';
 
     /**
      * @param \TijsVerkoyen\DocDataPayments\Types\Merchant $merchant

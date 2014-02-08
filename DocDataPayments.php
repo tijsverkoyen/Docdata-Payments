@@ -16,6 +16,7 @@ use TijsVerkoyen\DocDataPayments\Types\RefundRequest;
 use TijsVerkoyen\DocDataPayments\Types\SepaBankAccount;
 use TijsVerkoyen\DocDataPayments\Types\Shopper;
 use TijsVerkoyen\DocDataPayments\Types\StatusRequest;
+use TijsVerkoyen\DocDataPayments\Types\PaidLevel;
 
 /**
  * Docdata Payments class
@@ -491,10 +492,28 @@ class DocDataPayments
      * captures or refunds. It can be used to determine whether an order is considered paid, to retrieve a payment ID,
      * to get information on the statuses of captures/refunds.
      *
-     * @param  string                                           $paymentOrderKey
+     * @param  string $paymentOrderKey
      * @return TijsVerkoyen\DocDataPayments\Types\StatusSuccess
      */
     public function status($paymentOrderKey)
+    {
+        $request = new StatusRequest();
+        $request->setMerchant($this->merchant);
+        $request->setPaymentOrderKey($paymentOrderKey);
+
+        // make the call
+        $response = $this->statusReponse($paymentOrderKey);
+
+        return $response->statusSuccess;
+    }
+
+    /**
+     * The soap status response of a Payment Order,
+     *
+     * @param  string  $paymentOrderKey
+     * @return Soap Response
+     */
+    private function statusReponse($paymentOrderKey)
     {
         $request = new StatusRequest();
         $request->setMerchant($this->merchant);
@@ -515,8 +534,9 @@ class DocDataPayments
             );
         }
 
-        return $response->statusSuccess;
+        return $response;
     }
+
 
     /**
      * Get the payment url
@@ -630,5 +650,57 @@ class DocDataPayments
         // redirect
         header('location: ' . $url);
         exit();
+    }
+
+    /**
+     * Docdata document: 733126_Integration_manual_Order_Api_1-1.pdf
+     * Chapter: 7.4 Determining whether an order is paid
+     * Determining whether an order is paid
+     * Different merchants can have different ways of determining when they consider an order “paid”,
+     * the totals in the status report are there to help make this decision. Keep in mind that the status report
+     * never reports about money actually having been transferred to a merchant, so it is not a complete guarantee
+     * that a payment has been finished in that sense.
+     * Using the totals to determine a level of confidence:
+     * @param $paymentOrderKey
+     * @param $paidlevel, Constant of the asbtract class TijsVerkoyen\DocDataPayments\Types\PaidLevel
+     * @return the highest Paid level (from NotPaid to SafeRoute)
+     */
+    public function statusPaid($paymentOrderKey)
+    {
+        $response = $this->statusReponse($paymentOrderKey);
+
+        if(isset($response->statusSuccess) &&
+           $response->statusSuccess->getSuccess() != null &&
+           $response->statusSuccess->getSuccess()->getCode() == 'SUCCESS' &&
+           $response->statusSuccess->getReport() != null &&
+           $response->statusSuccess->getReport()->getApproximateTotals() != null
+          )
+        {
+            $approximateTotals = $response->statusSuccess->getReport()->getApproximateTotals();
+
+            //Safe Route
+            if(($approximateTotals->getTotalRegistered() == $approximateTotals->getTotalCaptured()))
+            {
+                return PaidLevel::SafeRoute;
+            }
+
+            //Balanced Route
+            if($approximateTotals->getTotalRegistered()  ==
+                $approximateTotals->gettotalAcquirerApproved())
+            {
+                return PaidLevel::BalancedRoute;
+            }
+
+            //Quick Route
+            if($approximateTotals->getTotalRegistered()  ==
+                    ($approximateTotals->getTotalShopperPending()
+                    + $approximateTotals->getTotalAcquirerPending()
+                    + $approximateTotals->gettotalAcquirerApproved()))
+            {
+                return PaidLevel::QuickRoute;
+            }
+        }
+
+        return PaidLevel::NotPaid;
     }
 }
