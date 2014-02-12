@@ -1,21 +1,26 @@
 {
-	"name": "tijsverkoyen/docdatapayments",
+	"name": "theodenhollander/docdatapayments",
 	"type": "library",
-	"description": "PHP Docdata Payments is a (wrapper)class to communicate with Docdata Payments.",
-	"homepage": "https://github.com/tijsverkoyen/Docdata-Payments",
+	"description": "PHP Docdata Payments is a (wrapper)class to communicate with Docdata Payments. Forked from tijsverkoyen/Docdata-Payments",
+	"homepage": "https://github.com/theodenhollander/Docdata-Payments",
 	"license": "BSD",
 	"authors": [
 		{
 			"name": "Tijs Verkoyen",
 			"email": "php-docdatapayments@verkoyen.eu",
 			"role": "Developer"
+		},
+		{
+			"name": "Theo den Hollander",
+			"email": "theo@hollandware.com",
+			"role": "Developer"
 		}
 	],
 	"require": {
 		"php": ">=5.3.0"
 	},
-	"target-dir": "TijsVerkoyen/DocDataPayments",
+	"target-dir": "theodenhollander/docdatapayments",
 	"autoload": {
-		"psr-0": {"TijsVerkoyen\\DocDataPayments": ""}
+		"psr-0": {"theodenhollander\\docdatapayments": ""}
 	}
 }
