@@ -21,6 +21,6 @@
 	},
 	"target-dir": "theodenhollander/docdatapayments",
 	"autoload": {
-		"psr-0": {"theodenhollander\\docdatapayments": ""}
+		"psr-0": {"tijsverkoyen\\docdatapayments": ""}
 	}
 }
