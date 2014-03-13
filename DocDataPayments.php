@@ -595,9 +595,9 @@ class DocDataPayments
         }
 
         if ($production) {
-            $base = 'https://www.docdatapayments.com/ps/com.tripledeal.paymentservice.servlets.PaymentService';
+            $base = 'https://secure.docdatapayments.com/ps/menu';
         } else {
-            $base = 'https://test.docdatapayments.com/ps/com.tripledeal.paymentservice.servlets.PaymentService';
+            $base = 'https://test.docdatapayments.com/ps/menu';
         }
 
         // build the url
