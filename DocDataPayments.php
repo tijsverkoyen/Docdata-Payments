@@ -513,7 +513,7 @@ class DocDataPayments
      * @param  string  $paymentOrderKey
      * @return Soap Response
      */
-    private function statusReponse($paymentOrderKey)
+    public function statusReponse($paymentOrderKey)
     {
         $request = new StatusRequest();
         $request->setMerchant($this->merchant);
