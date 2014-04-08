@@ -1,6 +1,8 @@
 <?php
 namespace TijsVerkoyen\DocDataPayments;
 
+use TijsVerkoyen\DocDataPayments\Base\LogDefault;
+use TijsVerkoyen\DocDataPayments\Base\LogInterface;
 use TijsVerkoyen\DocDataPayments\Types\Amount;
 use TijsVerkoyen\DocDataPayments\Types\CancelRequest;
 use TijsVerkoyen\DocDataPayments\Types\CaptureRequest;
@@ -37,11 +39,18 @@ class DocDataPayments
     private $merchant;
 
     /**
-     * The soapclient
+ * The soapclient
+ *
+ * @var SoapClient
+ */
+    private $soapClient;
+
+    /**
+     * Logger
      *
-     * @var \SoapClient
-     */
-    private $soapclient;
+     * @var LogInterface
+    */
+    public $logger;
 
     /**
      * The timeout
@@ -121,11 +130,13 @@ class DocDataPayments
      *
      * @param string[optional] $wsdl The location of the WSDL-file
      */
-    public function __construct($wsdl)
+    public function __construct($wsdl, LogInterface $logger = null)
     {
         if ($wsdl !== null) {
             $this->setWsdl($wsdl);
         }
+
+        $this->logger = ($logger == null) ? new LogDefault() : $logger;
     }
 
     /**
@@ -136,9 +147,9 @@ class DocDataPayments
     protected function getSoapClient()
     {
         // create the client if needed
-        if (!$this->soapclient) {
+        if (!$this->soapClient) {
             $options = array(
-                'trace' => self::DEBUG,
+                'trace' => true,
                 'exceptions' => true,
                 'connection_timeout' => $this->getTimeout(),
                 'user_agent' => $this->getUserAgent(),
@@ -296,7 +307,10 @@ class DocDataPayments
         }
 
         // make the call
+        $this->logger->info("Payment create: " .$merchantOrderReference, $request->toArray());
         $response = $this->getSoapClient()->create($request->toArray());
+        $this->logger->info("Payment create soap request: " .$merchantOrderReference, $this->soapClient->__getLastRequest());
+        $this->logger->info("Payment create soap response: " .$merchantOrderReference, $this->soapClient->__getLastResponse());
 
         // validate response
         if (isset($response->createError)) {
@@ -304,6 +318,9 @@ class DocDataPayments
                 var_dump($this->soapClient->__getLastRequest());
                 var_dump($response->createError);
             }
+
+            $this->logger->error("Payment create: " .$merchantOrderReference, $response->statusError->getError()->getExplanation());
+
 
             throw new Exception(
                 $response->createError->getError()->getExplanation()
@@ -328,7 +345,13 @@ class DocDataPayments
         $request->setPaymentOrderKey($paymentOrderKey);
 
         // make the call
+
+
+        $this->logger->info("Payment cancel: " .$paymentOrderKey, $request->toArray());
         $response = $this->getSoapClient()->cancel($request->toArray());
+        $this->logger->info("Payment cancel soap request: " .$paymentOrderKey, $this->soapClient->__getLastRequest());
+        $this->logger->info("Payment cancel soap response: " .$paymentOrderKey, $this->soapClient->__getLastResponse());
+
 
         // validate response
         if (isset($response->cancelError)) {
@@ -336,6 +359,7 @@ class DocDataPayments
                 var_dump($this->soapClient->__getLastRequest());
                 var_dump($response->cancelError);
             }
+            $this->logger->error("Payment cancel: " .$paymentOrderKey, $response->statusError->getError()->getExplanation());
 
             throw new Exception(
                 $response->cancelError->getError()->getExplanation()
@@ -401,7 +425,11 @@ class DocDataPayments
         }
 
         // make the call
+
+        $this->logger->info("Payment capture: " .$merchantCaptureReference, $request->toArray());
         $response = $this->getSoapClient()->capture($request->toArray());
+        $this->logger->info("Payment capture soap request: " .$merchantCaptureReference, $this->soapClient->__getLastRequest());
+        $this->logger->info("Payment capture soap response: " .$merchantCaptureReference, $this->soapClient->__getLastResponse());
 
         // validate response
         if (isset($response->captureError)) {
@@ -409,6 +437,8 @@ class DocDataPayments
                 var_dump($this->soapClient->__getLastRequest());
                 var_dump($response->captureError);
             }
+
+            $this->logger->error("Payment capture: " .$merchantCaptureReference, $response->statusError->getError()->getExplanation());
 
             throw new Exception(
                 $response->captureError->getError()->getExplanation()
@@ -470,7 +500,11 @@ class DocDataPayments
         }
 
         // make the call
+        $this->logger->info("Payment capture: " .$merchantRefundReference, $request->toArray());
         $response = $this->getSoapClient()->refund($request->toArray());
+        $this->logger->info("Payment capture soap request: " .$merchantRefundReference, $this->soapClient->__getLastRequest());
+        $this->logger->info("Payment capture soap response: " .$merchantRefundReference, $this->soapClient->__getLastRequest());
+
 
         // validate response
         if (isset($response->refundError)) {
@@ -478,6 +512,8 @@ class DocDataPayments
                 var_dump($this->soapClient->__getLastRequest());
                 var_dump($response->refundError);
             }
+
+            $this->logger->error("Payment capture: " .$merchantRefundReference, $response->statusError->getError()->getExplanation());
 
             throw new Exception(
                 $response->refundError->getError()->getExplanation()
@@ -520,7 +556,10 @@ class DocDataPayments
         $request->setPaymentOrderKey($paymentOrderKey);
 
         // make the call
+        $this->logger->info("Payment status: " .$paymentOrderKey, $request->toArray());
         $response = $this->getSoapClient()->status($request->toArray());
+        $this->logger->info("Payment status soap request: " .$paymentOrderKey, $this->soapClient->__getLastRequest());
+        $this->logger->info("Payment status soap response: " .$paymentOrderKey, $this->soapClient->__getLastRequest());
 
         // validate response
         if (isset($response->statusError)) {
@@ -529,6 +568,8 @@ class DocDataPayments
                 var_dump($response->statusError);
             }
 
+            $this->logger->error("Payment status: " .$paymentOrderKey, $response->statusError->getError()->getExplanation());
+
             throw new Exception(
                 $response->statusError->getError()->getExplanation()
             );
@@ -536,7 +577,6 @@ class DocDataPayments
 
         return $response;
     }
-
 
     /**
      * Get the payment url
@@ -646,6 +686,8 @@ class DocDataPayments
             $defaultAct,
             $production
         );
+
+        $this->logger->info("Redirect to docdata: " .$url);
 
         // redirect
         header('location: ' . $url);
