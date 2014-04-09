@@ -319,7 +319,7 @@ class DocDataPayments
                 var_dump($response->createError);
             }
 
-            $this->logger->error("Payment create: " .$merchantOrderReference, $response->statusError->getError()->getExplanation());
+            $this->logger->error("Payment create: " .$merchantOrderReference, $response->createError->getError()->getExplanation());
 
 
             throw new Exception(
@@ -359,7 +359,7 @@ class DocDataPayments
                 var_dump($this->soapClient->__getLastRequest());
                 var_dump($response->cancelError);
             }
-            $this->logger->error("Payment cancel: " .$paymentOrderKey, $response->statusError->getError()->getExplanation());
+            $this->logger->error("Payment cancel: " .$paymentOrderKey, $response->cancelError->getError()->getExplanation());
 
             throw new Exception(
                 $response->cancelError->getError()->getExplanation()
@@ -438,7 +438,7 @@ class DocDataPayments
                 var_dump($response->captureError);
             }
 
-            $this->logger->error("Payment capture: " .$merchantCaptureReference, $response->statusError->getError()->getExplanation());
+            $this->logger->error("Payment capture: " .$merchantCaptureReference, $response->captureError->getError()->getExplanation());
 
             throw new Exception(
                 $response->captureError->getError()->getExplanation()
@@ -513,7 +513,7 @@ class DocDataPayments
                 var_dump($response->refundError);
             }
 
-            $this->logger->error("Payment capture: " .$merchantRefundReference, $response->statusError->getError()->getExplanation());
+            $this->logger->error("Payment capture: " .$merchantRefundReference, $response->refundError->getError()->getExplanation());
 
             throw new Exception(
                 $response->refundError->getError()->getExplanation()
