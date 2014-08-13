@@ -44,6 +44,11 @@ class Address extends Object
     /**
      * @var string
      */
+    protected $state;
+    
+    /**
+     * @var string
+     */
     protected $city;
 
     /**
@@ -65,6 +70,22 @@ class Address extends Object
     public function getCity()
     {
         return $this->city;
+    }
+    
+     /**
+     * @param string $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 
     /**
