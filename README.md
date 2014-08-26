@@ -4,7 +4,7 @@
 
 ## About
 
-PHP Docdata Payments is a (wrapper)class to communicate with [Docdata Payments](http://www.docdatapayments.com).
+PHP Docdata Payments is a (wrapper)class to communicate with [Docdata Payments](http://www.docdatapayments.com). Forked from Tijsverkoyen, up-to-date with api 1.2, logging interface and a determination whether an order is paid 
 
 ##Extra
 Forked from Tijsverkoyen
