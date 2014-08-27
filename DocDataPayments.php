@@ -704,10 +704,10 @@ class DocDataPayments
      * that a payment has been finished in that sense.
      * Using the totals to determine a level of confidence:
      * @param $paymentOrderKey
-     * @param $paidlevel, Constant of the asbtract class TijsVerkoyen\DocDataPayments\Types\PaidLevel
-     * @return the highest Paid level (from NotPaid to SafeRoute)
+     * @param $currencyAmountDiffAcceptedRange int Currency difference between Euro and Dollars, this is the accepted range
+     * @return $paidlevel, Constant of the asbtract class TijsVerkoyen\DocDataPayments\Types\PaidLevel
      */
-    public function statusPaid($paymentOrderKey)
+    public function statusPaid($paymentOrderKey, $currencyAmountDiffAcceptedRange = 0)
     {
         $response = $this->statusReponse($paymentOrderKey);
 
@@ -721,23 +721,23 @@ class DocDataPayments
             $approximateTotals = $response->statusSuccess->getReport()->getApproximateTotals();
 
             //Safe Route
-            if(($approximateTotals->getTotalRegistered() == $approximateTotals->getTotalCaptured()))
+            if(($approximateTotals->getTotalRegistered() <= $approximateTotals->getTotalCaptured() + $currencyAmountDiffAcceptedRange))
             {
                 return PaidLevel::SafeRoute;
             }
 
             //Balanced Route
-            if($approximateTotals->getTotalRegistered()  ==
-                $approximateTotals->gettotalAcquirerApproved())
+            if($approximateTotals->getTotalRegistered()  <=
+                $approximateTotals->gettotalAcquirerApproved() + $currencyAmountDiffAcceptedRange)
             {
                 return PaidLevel::BalancedRoute;
             }
 
             //Quick Route
-            if($approximateTotals->getTotalRegistered()  ==
-                    ($approximateTotals->getTotalShopperPending()
+            if($approximateTotals->getTotalRegistered()  <=
+                    $approximateTotals->getTotalShopperPending()
                     + $approximateTotals->getTotalAcquirerPending()
-                    + $approximateTotals->gettotalAcquirerApproved()))
+                    + $approximateTotals->gettotalAcquirerApproved() + $currencyAmountDiffAcceptedRange)
             {
                 return PaidLevel::QuickRoute;
             }

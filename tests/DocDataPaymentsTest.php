@@ -275,7 +275,7 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
             $paymentPreferences
         );
 
-        $paidLevel = $this->docDataPayments->statusPaid($var->getKey());
+        $paidLevel = $this->docDataPayments->statusPaid($var->getKey(), 3);
 
 
         $this->assertEquals(PaidLevel::NotPaid, $paidLevel);
@@ -289,7 +289,7 @@ class DocDataPaymentsTest extends PHPUnit_Framework_TestCase
         $this->markTestSkipped('we can\'t test this without a manually docdata transaction, that has been paid.');
 
         //Please read the manual about the paidLevel
-        $paidLevel = $this->docDataPayments->statusPaid('123ABD');
+        $paidLevel = $this->docDataPayments->statusPaid('123ABD', 3);
 
         $this->assertTrue(in_array($paidLevel, array(PaidLevel::BalancedRoute, PaidLevel::SafeRoute)));
 
