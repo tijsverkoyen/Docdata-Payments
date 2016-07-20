@@ -1,8 +1,8 @@
 {
-	"name": "tijsverkoyen/docdatapayments",
+	"name": "theodenhollander/docdatapayments",
 	"type": "library",
-	"description": "PHP Docdata Payments is a (wrapper)class to communicate with Docdata Payments.",
-	"homepage": "https://github.com/tijsverkoyen/Docdata-Payments",
+	"description": "PHP Docdata Payments is a (wrapper)class to communicate with Docdata Payments. Forked from Tijsverkoyen, extra feateres: up-to-date with api 1.2, logging interface and a determination whether an order is paid",
+	"homepage": "https://github.com/theodenhollander/Docdata-Payments",
 	"license": "BSD",
 	"authors": [
 		{

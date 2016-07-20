@@ -134,7 +134,7 @@ class Invoice extends Object
     {
         $return = parent::toArray();
 
-        var_dump($return['totalVatAmount']);
+        //var_dump($return['totalVatAmount']);
 
         return $return;
     }
